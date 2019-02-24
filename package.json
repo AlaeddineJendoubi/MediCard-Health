@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "expo": "^32.0.0",
-    "mysql": "^2.16.0",
     "native-base": "^2.11.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
