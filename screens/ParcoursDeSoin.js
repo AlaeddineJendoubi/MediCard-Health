@@ -55,9 +55,10 @@ class ParcoursDeSoin extends Component {
              </Header>
 
 
-      <View style ={{ flex:1, alignItems:'center',justifyContent:'center'}}>
+      <View style ={{ flex:1}}>
 
           <Text style={{backgroundColor: 'white',fontSize:20,marginLeft:10,marginRight:10,marginTop:20}}>La liste d'historique des maladies avec les date , les ordonnances et les docteurs : </Text>
+
 
          <FlatList
 
@@ -69,8 +70,20 @@ class ParcoursDeSoin extends Component {
 
 
 
+
          <View style={{backgroundColor:'#abc123',padding:10,margin:10}}>
 
+           <ListItem icon>
+          <Left>
+            <Button style={{ backgroundColor: "#007AFF" }}>
+              <Icon active name="doctor" />
+            </Button>
+          </Left>
+          <Body>
+            <Text>Nom du Docteur : {item.medecin}</Text>
+          </Body>
+
+        </ListItem>
             <Text style={{color:'#fff', fontWeight:'bold'}}>{item.medecin}</Text>
 
             <Text style={{color:'#fff'}}>{item.maladie}</Text>
