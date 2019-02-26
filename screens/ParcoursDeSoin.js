@@ -6,8 +6,11 @@ import {
   FlatList,
   ListView
 } from "react-native";
-import Icon from 'react-native-vector-icons'
-import {Container, Header, Left, Body, Right, Title, Subtitle,Icon ,Button , List , ListItem} from 'native-base'
+import Icon0 from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon1 from 'react-native-vector-icons/AntDesign'
+import Icon2 from 'react-native-vector-icons/MaterialIcons'
+import Icon3 from 'react-native-vector-icons/FontAwesome5'
+import {Container, Header, Left, Body, Right, Title, Subtitle ,Button , List , ListItem,Icon} from 'native-base'
 
 
 class ParcoursDeSoin extends Component {
@@ -72,24 +75,51 @@ class ParcoursDeSoin extends Component {
 
 
 
-         <View style={{backgroundColor:'#abc123',padding:10,margin:10}}>
+         <View style={{backgroundColor:'#e6e6e6',padding:10,margin:10}}>
 
            <ListItem icon>
-          <Left>
-            <Button style={{ backgroundColor: "#007AFF" }}>
-              <Icon active name="doctor" />
-            </Button>
-          </Left>
+              <Left>
+                  <Button style={{ backgroundColor: "white" }}>
+                      <Icon0 active name="doctor" />
+                  </Button>
+              </Left>
+              <Body>
+                  <Text>Nom du Docteur : {item.medecin}</Text>
+              </Body>
+          </ListItem>
+
+          <ListItem icon>
+              <Left>
+                  <Button style={{ backgroundColor: "white" }}>
+                      <Icon1 active name="medicinebox" />
+                  </Button>
+             </Left>
           <Body>
-            <Text>Nom du Docteur : {item.medecin}</Text>
+              <Text>Nom du maladie : {item.maladie}</Text>
           </Body>
+         </ListItem>
 
+         <ListItem icon>
+            <Left>
+                <Button style={{ backgroundColor: "white" }}>
+                    <Icon2 active name="date-range" />
+                </Button>
+            </Left>
+            <Body>
+                <Text>Date du consultation : {item.date}</Text>
+            </Body>
         </ListItem>
-            <Text style={{color:'#fff', fontWeight:'bold'}}>{item.medecin}</Text>
 
-            <Text style={{color:'#fff'}}>{item.maladie}</Text>
-
-
+        <ListItem icon>
+           <Left>
+               <Button style={{ backgroundColor: "white" }}>
+                   <Icon0 active name="note-text" />
+               </Button>
+           </Left>
+           <Body>
+               <Text>Ordonnances : {item.ordonnance}</Text>
+           </Body>
+       </ListItem>
            </View>
 
 
