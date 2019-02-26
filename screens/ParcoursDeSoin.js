@@ -6,7 +6,7 @@ import {
   FlatList,
   ListView
 } from "react-native";
-import {Left , Right, Icon, Header } from 'native-base'
+import {Container, Header, Left, Body, Right, Title, Subtitle,Icon ,Button , List , ListItem} from 'native-base'
 
 
 class ParcoursDeSoin extends Component {
@@ -32,18 +32,32 @@ class ParcoursDeSoin extends Component {
   }
   render() {
     return (
-      <View style={ styles.container}>
-           <Header  >
-             <Left style ={{top:10 , flex:1}} >
-                  <Icon name ="menu"  onPress={() =>
-                 this.props.navigation.openDrawer()
-                 } />
-              </Left>
-          </Header>
+      <Container>
+             <Header style={{marginTop:35}}>
+               <Left>
+                 <Left style ={{top:10 ,marginLeft:-50, flex:1}} >
+                      <Icon name ="menu"  onPress={() =>
+                     this.props.navigation.openDrawer()
+                     } />
+                  </Left>
+               </Left>
+               <Body>
+                 <Title>
+                   Parcours de Soin :
+                 </Title>
+                 <Subtitle>User Name</Subtitle>
+               </Body>
+               <Right>
+                 <Button transparent>
+              <Icon name='search' />
+                </Button>
+               </Right>
+             </Header>
+
 
       <View style ={{ flex:1, alignItems:'center',justifyContent:'center'}}>
-            <Text>ParcoursDeSoin </Text>
 
+          <Text style={{backgroundColor: 'white',fontSize:20,marginLeft:10,marginRight:10,marginTop:20}}>La liste d'historique des maladies avec les date , les ordonnances et les docteurs : </Text>
 
          <FlatList
 
@@ -73,7 +87,7 @@ class ParcoursDeSoin extends Component {
          />
       </View>
 
-      </View>
+</Container>
 
     );
   }

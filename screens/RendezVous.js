@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet
 } from "react-native";
-import {Left , Right, Icon, Header } from 'native-base'
+import {Container, Header, Left, Body, Right, Title, Subtitle,Icon  } from 'native-base'
 
 
 class RendezVous extends Component {
@@ -20,18 +20,25 @@ class RendezVous extends Component {
     return (
 
      <View style={ styles.container}>
-          <Header  >
-            <Left style ={{top:10 , flex:1}} >
-                 <Icon name ="menu"  onPress={() =>
-                this.props.navigation.openDrawer()
-                } />
-             </Left>
-         </Header>
+     <Header style={{marginTop:35}}>
+       <Left>
+         <Left style ={{top:10 ,marginLeft:-80, flex:1}} >
+              <Icon name ="menu"  onPress={() =>
+             this.props.navigation.openDrawer()
+             } />
+          </Left>
+       </Left>
+       <Body>
+         <Title>
+           Rendez Vous
+         </Title>
+       </Body>
+     </Header>
 
      <View style ={{ flex:1, alignItems:'center',justifyContent:'center'}}>
            <Text>RendezVous </Text>
      </View>
-      
+
      </View>
 
     );
@@ -45,8 +52,8 @@ const styles =StyleSheet.create({
     container : {
 
       flex: 1,
-    
-    
-       
+
+
+
     }
 })
