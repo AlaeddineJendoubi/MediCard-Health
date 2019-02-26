@@ -9,7 +9,7 @@ import APropos from './APropos';
 const {width} = Dimensions.get('window')
 
 class Accueil extends Component {
-    
+
   render() {
     return (
         <MApp />
@@ -20,11 +20,11 @@ class Accueil extends Component {
 const CustomDrawerComponent = (props) => (
 
     <SafeAreaView style={{ flex: 1 }}>
-    <View style= {{height:150 , backgroundColor:'white' , 
+    <View style= {{height:150 , backgroundColor:'white' ,
     alignItems: 'center' , justifyContent: 'center'}}>
-    <Image source={require('../assets/wiem.png')} 
+    <Image source={require('../assets/logo.png')}
     style={{ height: 120 , width: 120 , borderRadius: 60 , marginTop : 50}}/>
-    
+
     </View>
     <ScrollView>
       <DrawerItems {...props} />
@@ -37,10 +37,10 @@ const CustomDrawerComponent = (props) => (
         'Analyses' : Analyses,
         'Profil' : Profil,
         'A Propos': APropos,
-       
+
        }, {
        contentComponent : CustomDrawerComponent ,
-       drawerWidth: width , 
+       drawerWidth: width ,
        contentOptions : {
          activeTintColor : 'orange'
        }
@@ -61,4 +61,3 @@ const CustomDrawerComponent = (props) => (
 
 
 export default Accueil;
-

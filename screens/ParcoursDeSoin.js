@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  FlatList,
+  ListView
 } from "react-native";
 import {Left , Right, Icon, Header } from 'native-base'
 
@@ -15,24 +17,63 @@ class ParcoursDeSoin extends Component {
       color:tintColor}}/>
     )
   }
+  state = {
+    data:[]
+  }
+  fetchData= async()=>{
+    const response = await fetch('http://192.168.1.107:3000/parcoursoin');
+    const parcoursoin =await response.json();
+    this.setState({data:parcoursoin});
+  }
 
+  componentDidMount()
+  {
+    this.fetchData();
+  }
   render() {
     return (
+      <View style={ styles.container}>
+           <Header  >
+             <Left style ={{top:10 , flex:1}} >
+                  <Icon name ="menu"  onPress={() =>
+                 this.props.navigation.openDrawer()
+                 } />
+              </Left>
+          </Header>
 
-     <View style={ styles.container}>
-          <Header  >
-            <Left style ={{top:10 , flex:1}} >
-                 <Icon name ="menu"  onPress={() =>
-                this.props.navigation.openDrawer()
-                } />
-             </Left>
-         </Header>
+      <View style ={{ flex:1, alignItems:'center',justifyContent:'center'}}>
+            <Text>ParcoursDeSoin </Text>
 
-     <View style ={{ flex:1, alignItems:'center',justifyContent:'center'}}>
-           <Text>ParcoursDeSoin </Text>
-     </View>
-      
-     </View>
+
+         <FlatList
+
+         data={this.state.data}
+
+         keyExtractor={(item,index) => index.toString()}
+
+         renderItem={({item}) =>
+
+
+
+         <View style={{backgroundColor:'#abc123',padding:10,margin:10}}>
+
+            <Text style={{color:'#fff', fontWeight:'bold'}}>{item.medecin}</Text>
+
+            <Text style={{color:'#fff'}}>{item.maladie}</Text>
+
+
+           </View>
+
+
+
+         }
+
+
+
+         />
+      </View>
+
+      </View>
 
     );
   }
@@ -45,8 +86,8 @@ const styles =StyleSheet.create({
     container : {
 
       flex: 1,
-    
-    
-       
+
+
+
     }
 })
