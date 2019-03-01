@@ -25,7 +25,7 @@ class ParcoursDeSoin extends Component {
     data:[]
   }
   fetchData= async()=>{
-    const response = await fetch('http://192.168.1.107:3000/parcoursoin');
+    const response = await fetch('http://192.168.1.11:3000/parcoursoin');
     const parcoursoin =await response.json();
     this.setState({data:parcoursoin});
   }
