@@ -18,7 +18,7 @@ class RendezVous extends Component{
     data:[]
   }
   fetchData= async()=>{
-      const response = await fetch('http://192.168.1.11:3000/rendezvous/1');
+      const response = await fetch('http://192.168.1.107:3000/rendezvous/1');
       const rendezvous =await response.json();
       this.setState({data:rendezvous});
   }
@@ -82,7 +82,7 @@ class RendezVous extends Component{
                           </Left>
                           <Body>
                             <CountDown
-                              until= {{item.date}}
+                              until= {item.date}
                               timetoShow={('H', 'M', 'S')}
                               onFinish={() => alert('finished')}
                               onPress={() => alert('hello')}
