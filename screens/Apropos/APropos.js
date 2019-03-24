@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet
 } from "react-native";
-import {Left , Right, Icon, Header } from 'native-base'
+import {Left , Right, Icon, Header ,Body} from 'native-base'
 
 
 class APropos extends Component {
@@ -20,18 +20,23 @@ class APropos extends Component {
     return (
 
      <View style={ styles.container}>
-          <Header  >
-            <Left style ={{top:10 , flex:1}} >
+             <Header style={{marginTop:35}}>
+            <Left>
                  <Icon name ="menu"  onPress={() =>
                 this.props.navigation.openDrawer()
                 } />
              </Left>
+             <Right>
+             </Right>
+             <Body>
+             </Body>
+
          </Header>
 
      <View style ={{ flex:1, alignItems:'center',justifyContent:'center'}}>
            <Text> APropos </Text>
      </View>
-      
+
      </View>
 
     );
@@ -45,8 +50,8 @@ const styles =StyleSheet.create({
     container : {
 
       flex: 1,
-    
-    
-       
+
+
+
     }
 })

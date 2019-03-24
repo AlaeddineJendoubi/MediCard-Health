@@ -13,6 +13,7 @@ import Analyses from './screens/Analyses/Analyses'
 import Profil from './screens/Profil/Profil'
 import APropos from './screens/Apropos/APropos';
 import Accueil from './screens/Accueil/Accueil';
+import Ordonnance from'./screens/Ordonnance/Ordonnance';
 import Login from './screens/Login/Login';
 import { Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
@@ -120,6 +121,36 @@ const AppDrawerNavigator = createDrawerNavigator({
       title:'Analyses',
       drawerIcon: ({tintColor}) => (
         <Icon name = "md-medical" style ={{ fontSize : 24 ,
+          color:tintColor}}/>
+        )
+    },
+  },
+  Profil:{
+    screen: Profil,
+    navigationOptions:{
+      title:'Profil',
+      drawerIcon: ({tintColor}) => (
+        <Icon name = "ios-man" style ={{ fontSize : 24 ,
+          color:tintColor}}/>
+        )
+    },
+  },
+  Profil:{
+    screen: Ordonnance,
+    navigationOptions:{
+      title:'Ordonnance',
+      drawerIcon: ({tintColor}) => (
+        <Icon name = "md-medkit" style ={{ fontSize : 24 ,
+          color:tintColor}}/>
+        )
+    },
+  },
+  APropos:{
+    screen: APropos,
+    navigationOptions:{
+      title:'A propos',
+      drawerIcon: ({tintColor}) => (
+        <Icon name = "md-analytics" style ={{ fontSize : 24 ,
           color:tintColor}}/>
         )
     },

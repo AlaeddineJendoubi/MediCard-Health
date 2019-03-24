@@ -43,13 +43,12 @@ const { navigate } = this.props.navigation;
     return (
       <Container>
              <Header style={{marginTop:35}}>
-               <Left>
-                 <Left style ={{top:18 ,marginLeft:-45, flex:1}} >
+                 <Left >
                       <Icon name ="menu"  onPress={() =>
                      this.props.navigation.openDrawer()
                      } />
                   </Left>
-               </Left>
+               
                <Body>
                  <Title>
                    Parcours de Soin :
