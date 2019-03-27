@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import {  View,ImageBackground ,StyleSheet} from 'react-native';
+import {  View,ImageBackground ,StyleSheet,Image} from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text,Subtitle } from 'native-base';
-import bg from '../../assets/images/try.png'
+import bg from '../../assets/images/tryb.png'
+import logo from '../../assets/images/trylogo.png'
+import Iconbtn from "@expo/vector-icons/Ionicons";
 import { Font } from 'expo';
 class Accueil extends Component {
 
@@ -9,9 +11,9 @@ class Accueil extends Component {
       const {navigate} = this.props.navigation;
     return (
 
-      <Container >
+      <Container  >
       <Header style={{marginTop:35}}>
-        
+
           <Left >
                <Icon name ="menu"  onPress={() =>
               this.props.navigation.openDrawer()
@@ -24,48 +26,47 @@ class Accueil extends Component {
           </Title>
           <Subtitle>Alaeddine</Subtitle>
         </Body>
+        <Right></Right>
       </Header>
       <ImageBackground source={bg}  style={styles.Backgroundcontainer} >
 
-             <Content style={{marginTop:35}}>
-               <Text style={{ fontFamily: 'Ionicons',  textAlign: 'center',fontSize: 25 ,marginTop:35,marginHorizontal: 10}}>
-                Bienvenue dans votre moniteur
-                </Text>
-                <Text style={{ fontFamily: 'Ionicons', textAlign: 'center', fontSize: 25 ,marginTop:10,marginHorizontal: 15}}>
-                  de santé personnel MediCard
-                </Text>
-                <View style={{marginTop:40 , justifyContent:'center',alignItems:'center' }}>
-                      <Text style={{ textAlign: 'center',fontWeight:'bold',marginTop:20,color:'red',fontSize:16}} >  Pour consulter ou bien prendre rendez-Vous clicker sur </Text>
-                      <Text style={{ textAlign: 'center',fontWeight:'bold'}} >Rendez-Vous</Text>
-                      <Button style={{width:400}} iconLeft light  onPress={() => navigate('Rendez-vous')}>
-                      <Icon name='arrow-back' />
-                        <Text>RendezVous</Text>
-                      </Button>
+             <Content >
+                <View style={{alignItems:'center' , marginTop:5 ,justifyContent:'center'}}>
+                    <Text style={{ fontFamily: 'Ionicons',  textAlign: 'center',fontSize: 25 ,marginTop:35,fontWeight:'bold',color:'#0c75b0'}}>Bienvenue dans votre compagnon</Text>
+                    <Text style={{ fontFamily: 'Ionicons', textAlign: 'center', fontSize: 25 ,marginTop:10,fontWeight:'bold',color:'#0c75b0'}}>de santé personnel MediCard  </Text>
+                    <Image  source = {logo} style = {styles.logo}  />
+                      <Text style={{fontWeight:'bold',marginTop:20,color:'#cf1d76',fontSize:16}} >  Pour consulter ou bien prendre rendez-Vous clicker sur </Text>
+                        <Button style={{justifyContent:'center',marginHorizontal:'30%',color:'#0c75b0',marginTop:15,width:170}}  onPress={() => navigate('RendezVous')}>
+                          <Iconbtn name='md-calendar' style={{ fontSize: 24,marginLeft:5,  borderRadius: 25,color:'white'}}/>
+                          <Text>Rendez-Vous</Text>
+                        </Button>
 
-                      <Text style={{ textAlign: 'center',fontWeight:'bold',marginTop:20,color:'red',fontSize:16}} >  Pour consulter votre Parcours de soin clicker sur </Text>
-                      <Text style={{ textAlign: 'center',fontWeight:'bold'}} >Parcours de soin</Text>
-                      <Button style={{width:400}} iconLeft light onPress={() => navigate('Examen medicale')} >
-                      <Icon name='arrow-back' />
-                        <Text>Parcours De Soin</Text>
-                      </Button>
+                        <Text style={{fontWeight:'bold',marginTop:20,color:'#cf1d76',fontSize:16}} >  Pour consulter vos examens medicaux clicker sur </Text>
+                          <Button style={{justifyContent:'center',marginHorizontal:'30%',color:'#0c75b0',marginTop:15,width:170}}  onPress={() => navigate('ParcoursDeSoin')}>
+                            <Iconbtn name='md-document' style={{ fontSize: 24,marginLeft:5,  borderRadius: 25,color:'white'}}/>
+                            <Text>Examen medicale</Text>
+                          </Button>
 
-                      <Text style={{ textAlign: 'center',fontWeight:'bold',marginTop:20,color:'red',fontSize:16}} >  Pour consulter vos Analyses clicker sur </Text>
-                      <Text style={{ textAlign: 'center',fontWeight:'bold'}} >Analyses</Text>
-                      <Button style={{width:400}} iconLeft light onPress={() => navigate('Analyses') }>
-                      <Icon name='arrow-back' />
-                        <Text>Analyses</Text>
-                      </Button>
+                        <Text style={{fontWeight:'bold',marginTop:20,color:'#cf1d76',fontSize:16}} > Pour consulter vos analyses clicker sur </Text>
+                          <Button style={{justifyContent:'center',marginHorizontal:'30%',color:'#0c75b0',marginTop:15,width:170}}  onPress={() => navigate('Analyses')}>
+                            <Iconbtn name='md-medical' style={{ fontSize: 24,marginLeft:5,  borderRadius: 25,color:'white'}}/>
+                            <Text>analyses</Text>
+                          </Button>
 
-                      <Text style={{ textAlign: 'center',fontWeight:'bold',marginTop:20,color:'red',fontSize:16}} >  Pour consultervotre Profil clicker sur </Text>
-                      <Text style={{ textAlign: 'center',fontWeight:'bold'}} >Profil</Text>
-                      <Button style={{width:400}} iconLeft light onPress={() => navigate('Profil')}>
-                      <Icon name='arrow-back' />
-                        <Text>Profile</Text>
-                      </Button>
+                        <Text style={{fontWeight:'bold',marginTop:20,color:'#cf1d76',fontSize:16}} >  Pour consulter vos analyses clicker sur </Text>
+                          <Button style={{justifyContent:'center',marginHorizontal:'30%',color:'#0c75b0',marginTop:15,width:170}}  onPress={() => navigate('Ordonnance')}>
+                            <Iconbtn name='md-medkit' style={{ fontSize: 24,marginLeft:5,  borderRadius: 25,color:'white'}}/>
+                            <Text>Ordonnances</Text>
+                          </Button>
 
+                        <Text style={{fontWeight:'bold',marginTop:20,color:'#cf1d76',fontSize:16}} >  Pour consulter votre profiles clicker sur </Text>
+                          <Button style={{justifyContent:'center',marginHorizontal:'30%',color:'#0c75b0',marginTop:15,width:170}}  onPress={() => navigate('Profil')}>
+                            <Iconbtn name='ios-man' style={{ fontSize: 24,marginLeft:5,  borderRadius: 25,color:'white'}}/>
+                            <Text>Profile</Text>
+                          </Button>
 
                 </View>
-             </Content>
+            </Content>
              <Footer>
                <FooterTab>
                  <Button full>
@@ -83,10 +84,15 @@ class Accueil extends Component {
     const styles = StyleSheet.create({
       Backgroundcontainer :{
         flex : 1 ,
-        width : null ,
-        height : null ,
         justifyContent : 'center' ,
         alignItems : 'center' ,
-      }
+      },
+      logo:{
+        justifyContent:'center',
+        width:128,
+        height:155,
+        marginTop:5
+
+      },
     });
       export default Accueil;
