@@ -19,7 +19,6 @@ import {
   DrawerItems
 } from "react-navigation"; //React navigation imports
 //Screen imports
-import RendezVous from "./screens/RendezVous/RendezVous";
 import Consulter from "./screens/RendezVous/Consulter";
 import Prendre from "./screens/RendezVous/Prendre";
 import Historique from "./screens/RendezVous/Historique";
@@ -34,12 +33,13 @@ import Login from "./screens/Login/Login";
 //Used Component imports
 import Icon from "@expo/vector-icons/Ionicons";
 import { Icon0 } from "native-base";
-import Icon1 from 'react-native-vector-icons/FontAwesome'
+import Icon1 from "react-native-vector-icons/FontAwesome";
 import { Font } from "expo";
 import { Ionicons } from "@expo/vector-icons";
 const { width } = Dimensions.get("window");
-import  drawerBg from './assets/images/tryb.png'
-export default class App extends React.Component { //Loading used fonts at the app start
+import drawerBg from "./assets/images/tryb.png";
+export default class App extends React.Component {
+  //Loading used fonts at the app start
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -57,57 +57,59 @@ export default class App extends React.Component { //Loading used fonts at the a
 //Creating the custom Drawer menu Component
 const CustomDrawerComponent = props => (
   <SafeAreaView style={{ flex: 1 }}>
-    <ImageBackground source={drawerBg}  style={styles.Backgroundcontainer}>
-    <Image
-      source={require("./assets/images/logo.png")}
-      style={{ height: 120, width: 120, borderRadius: 0 , marginTop:20 }}
-    />
-    <ScrollView>
-      <DrawerItems {...props} />
-    </ScrollView>
+    <ImageBackground source={drawerBg} style={styles.Backgroundcontainer}>
+      <Image
+        source={require("./assets/images/logo.png")}
+        style={{ height: 120, width: 120, borderRadius: 0, marginTop: 20 }}
+      />
+      <ScrollView>
+        <DrawerItems {...props} />
+      </ScrollView>
     </ImageBackground>
   </SafeAreaView>
 );
 //Creating the tab container and customizing it
 const RendezvousTabNavigator = createBottomTabNavigator(
   {
-    Consulter:
-    {
+    Consulter: {
       screen: Consulter,
-      navigationOptions:
-      {
-          tabBarLabel:'Consulter',
-          tabBarIcon:({tintColor}) => <Icon1 name="calendar-check-o" size={20} style={{ color: 'red' }}/>
-
-      },
-    },
-    Prendre:{
-      screen: Prendre,
-      navigationOptions:
-      {
-          tabBarLabel:'Ajouter',
-          tabBarIcon:({tintColor}) => <Icon1 name="calendar-plus-o" size={20} style={{ color: 'red' }}/>
-
+      navigationOptions: {
+        tabBarLabel: "Consulter",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon1 name="calendar-check-o" size={20} style={{ color: "red" }} />
+        )
       }
     },
-    Historique:{
-      screen:Historique,
-      navigationOptions:
-      {
-          tabBarLabel:'Historique',
-          tabBarIcon:({tintColor}) => <Icon1 name="calendar-times-o" size={20} style={{ color: 'red' }}/>
+    Prendre: {
+      screen: Prendre,
+      navigationOptions: {
+        tabBarLabel: "Ajouter",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon1 name="calendar-plus-o" size={20} style={{ color: "red" }} />
+        )
+      }
+    },
+    Historique: {
+      screen: Historique,
+      navigationOptions: {
+        tabBarLabel: "Historique",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon1 name="calendar-times-o" size={20} style={{ color: "red" }} />
+        )
       }
     }
   },
   {
-    navigationOptions: { //Setting the navigation icon in the drawer
+    navigationOptions: {
+      //Setting the navigation icon in the drawer
       drawerIcon: ({ tintColor }) => (
         <Icon0 name="folder" style={{ fontSize: 24, color: tintColor }} />
       )
     }
-  },
+  }
 );
-const StackNavigator = createStackNavigator( //Creating a stack StackNavigator to NEST the tab navigator in it so it can be Nested inside the drawer Navigator
+const StackNavigator = createStackNavigator(
+  //Creating a stack StackNavigator to NEST the tab navigator in it so it can be Nested inside the drawer Navigator
   {
     RendezvousTabNavigator: RendezvousTabNavigator
   },
@@ -121,13 +123,19 @@ const StackNavigator = createStackNavigator( //Creating a stack StackNavigator t
             name="md-menu"
             size={30}
           />
-        )
+        ),
+        headerStyle: {
+          backgroundColor: "#283593",
+          borderWidth: 1,
+          borderBottomColor: "white"
+        }
       };
     }
   }
 );
 
-const AppDrawerNavigator = createDrawerNavigator( //Creating the drawer navigator
+const AppDrawerNavigator = createDrawerNavigator(
+  //Creating the drawer navigator
   {
     Accueil: {
       screen: Accueil,
@@ -139,7 +147,7 @@ const AppDrawerNavigator = createDrawerNavigator( //Creating the drawer navigato
       }
     },
     RendezVous: {
-      screen: StackNavigator,   //Returns the StackNavigator that has a tabnavigaotr nested in it
+      screen: StackNavigator, //Returns the StackNavigator that has a tabnavigaotr nested in it
       navigationOptions: {
         title: "Rendez-vous",
         drawerIcon: ({ tintColor }) => (
@@ -198,18 +206,19 @@ const AppDrawerNavigator = createDrawerNavigator( //Creating the drawer navigato
   },
   {
     contentComponent: CustomDrawerComponent,
-    drawerWidth: width/2,
+    drawerWidth: width / 2,
     contentOptions: {
       activeTintColor: "orange"
     }
   }
 );
 
-const AppSwitchNavigator = createSwitchNavigator({ //Nesting the drawer navigator into our AppSwitchNavigator
+const AppSwitchNavigator = createSwitchNavigator({
+  //Nesting the drawer navigator into our AppSwitchNavigator
   Login: { screen: Login },
   Accueil: { screen: AppDrawerNavigator }
 });
-const MyApp = createAppContainer(AppSwitchNavigator);//puting the AppSwitchNavigator into the appcontainer
+const MyApp = createAppContainer(AppSwitchNavigator); //puting the AppSwitchNavigator into the appcontainer
 
 const styles = StyleSheet.create({
   container: {
@@ -218,9 +227,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  Backgroundcontainer :{
-    flex : 1 ,
-    justifyContent : 'center' ,
-    alignItems : 'center' ,
+  Backgroundcontainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
