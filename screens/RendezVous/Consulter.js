@@ -5,7 +5,8 @@ import {
   FlatList,
   ListView,
   ImageBackground,
-  Dimensions
+  Dimensions,
+  Image
 } from "react-native";
 import {
   Container,
@@ -23,7 +24,8 @@ import {
   Text,
   Badge,
   List,
-  ListItem
+  ListItem,
+  Separator
 } from "native-base";
 import Icon0 from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon1 from "react-native-vector-icons/FontAwesome";
@@ -31,6 +33,7 @@ import CountDown from "react-native-countdown-component";
 import moment from "moment";
 import "moment/locale/fr";
 import bg from "../../assets/images/tryb.png";
+import logo from "../../assets/images/trylogo.png";
 const { width: WIDTH } = Dimensions.get("window");
 
 class Consulter extends Component {
@@ -38,7 +41,7 @@ class Consulter extends Component {
     data: []
   };
   fetchData = async () => {
-    const response = await fetch("http://192.168.1.4:3000/rendezvousValider/1"); //Api link
+    const response = await fetch("http://192.168.1.107:3000/rendezvousValider/1"); //Api link
     const rendezvous = await response.json(); //fetching response into rendezvous
     this.setState({ data: rendezvous }); //Setting it into state
   };
@@ -48,6 +51,7 @@ class Consulter extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     const today = this.state.currentDate;
     const day = moment(today).format("dddd");
     const date = moment(today).format("MMMM D, YYYY");
@@ -55,7 +59,20 @@ class Consulter extends Component {
       <Container>
         <ImageBackground source={bg} style={styles.Backgroundcontainer}>
           <Content>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1 ,alignItems:"center"}}>
+<Image source={logo} style={styles.logo} />
+<Text
+  style={{
+    fontFamily: "Ionicons",
+    textAlign: "center",
+    fontSize: 25,
+    marginTop: 10,
+    fontWeight: "bold",
+    color: "#0c75b0"
+  }}
+>
+ rendez-vous à venir
+</Text>
               <FlatList
                 data={this.state.data} //Getting the data stored from the response in the state
                 keyExtractor={(item, index) => index.toString()} //Key used to identify the data
@@ -65,9 +82,11 @@ class Consulter extends Component {
                   var dates = item.date; //Getting the date from db and it will be humanized
                   var dateNow = date;
                   var s = dates - dateNow;
+                  var idmedecin= item.idmedecin;
 
                   return (
                     <View style={{ flex: 1, color: "red", width: WIDTH }}>
+
                       <ListItem thumbnail>
                         <Left style={{ marginTop: 15 }}>
                           <Icon0
@@ -76,6 +95,7 @@ class Consulter extends Component {
                             style={{ fontSize: 24, justifyContent: "center" }}
                           />
                         </Left>
+
                         <Body style={{ marginTop: 15 }}>
                           <Text
                             style={{
@@ -100,6 +120,14 @@ class Consulter extends Component {
                             Dr. {item.lnmedecin} {item.fnmedecin}
                           </Text>
                         </Body>
+                        <Right style={{ marginTop: 15 }}>
+                        <Icon1
+                          active
+                          name="angle-double-right"
+                          style={{ fontSize: 24, justifyContent: "center" }}
+                            onPress={() => navigate('MedecinProfile', {idmedecin: idmedecin}) }
+                        />
+                        </Right>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -135,6 +163,13 @@ class Consulter extends Component {
                               .format("LLLL")}
                           </Text>
                         </Body>
+                        <Right style={{ marginTop: 15 }}>
+                        <Icon0
+                          active
+                          name="calendar-clock"
+                          style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                        />
+                        </Right>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -170,7 +205,17 @@ class Consulter extends Component {
                               .fromNow()}
                           </Text>
                         </Body>
+                        <Right style={{ marginTop: 15 }}>
+                        <Icon0
+                          active
+                          name="calendar-remove"
+                          style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                        />
+                        </Right>
                       </ListItem>
+                      <Separator bordered>
+
+         </Separator>
                     </View>
                   );
                 }}
@@ -191,5 +236,11 @@ const styles = StyleSheet.create({
     flex: 1,
 
     alignItems: "center"
+  },
+  logo: {
+    justifyContent: "center",
+    width: 128,
+    height: 155,
+    marginTop: 5
   }
 });

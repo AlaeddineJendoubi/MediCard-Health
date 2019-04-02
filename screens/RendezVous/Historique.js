@@ -5,7 +5,8 @@ import {
   FlatList,
   ListView,
   ImageBackground,
-  Dimensions
+  Dimensions,
+  Image
 } from "react-native";
 import {
   Container,
@@ -23,7 +24,8 @@ import {
   Text,
   Badge,
   List,
-  ListItem
+  ListItem,
+
 } from "native-base";
 import Icon0 from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon1 from "react-native-vector-icons/FontAwesome";
@@ -31,6 +33,7 @@ import CountDown from "react-native-countdown-component";
 import moment from "moment";
 import "moment/locale/fr";
 import bg from "../../assets/images/tryb.png";
+import logo from "../../assets/images/trylogo.png";
 const { width: WIDTH } = Dimensions.get("window");
 
 class Historique extends Component {
@@ -38,7 +41,7 @@ class Historique extends Component {
     data: []
   };
   fetchData = async () => {
-    const response = await fetch("http://192.168.1.4:3000/rendezvousExpired/1");
+    const response = await fetch("http://192.168.1.107:3000/rendezvousExpired/1");
     const rendezvous = await response.json(); //fetching response into rendezvous
     this.setState({ data: rendezvous }); //Setting it into state
   };
@@ -55,7 +58,20 @@ class Historique extends Component {
       <Container>
         <ImageBackground source={bg} style={styles.Backgroundcontainer}>
           <Content>
-            <View style={{ flex: 1 }}>
+          <View style={{ flex: 1 ,alignItems:"center"}}>
+<Image source={logo} style={styles.logo} />
+<Text
+style={{
+  fontFamily: "Ionicons",
+  textAlign: "center",
+  fontSize: 25,
+  marginTop: 10,
+  fontWeight: "bold",
+  color: "#0c75b0"
+}}
+>
+Les rendez-vous passé
+</Text>
               <FlatList
                 data={this.state.data}
                 keyExtractor={(item, index) => index.toString()}
@@ -169,6 +185,7 @@ class Historique extends Component {
                           </Text>
                         </Body>
                       </ListItem>
+                  
                     </View>
                   );
                 }}
@@ -189,5 +206,11 @@ const styles = StyleSheet.create({
     flex: 1,
 
     alignItems: "center"
+  },
+  logo: {
+    justifyContent: "center",
+    width: 128,
+    height: 155,
+    marginTop: 5
   }
 });

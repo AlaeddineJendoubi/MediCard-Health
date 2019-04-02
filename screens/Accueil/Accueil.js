@@ -244,13 +244,7 @@ class Accueil extends Component {
               </Button>
             </View>
           </Content>
-          <Footer>
-            <FooterTab>
-              <Button full>
-                <Text>Footer</Text>
-              </Button>
-            </FooterTab>
-          </Footer>
+          
         </ImageBackground>
       </Container>
     );

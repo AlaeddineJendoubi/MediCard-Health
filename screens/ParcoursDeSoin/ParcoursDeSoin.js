@@ -5,16 +5,20 @@ import {
   StyleSheet,
   FlatList,
   ListView,
-  Alert
+  Alert,
+  ImageBackground,
+  Dimensions,
+  Image
 } from "react-native";
 import Icon0 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon1 from 'react-native-vector-icons/AntDesign'
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
-import Icon3 from 'react-native-vector-icons/FontAwesome5'
-
+import Icon3 from 'react-native-vector-icons/FontAwesome'
+import bg from "../../assets/images/tryb.png";
+import logo from "../../assets/images/trylogo.png";
 import { createStackNavigator, createAppContainer } from "react-navigation";
-
-import {Container, Header, Left, Body, Right, Title, Subtitle ,Button , List , ListItem,Icon} from 'native-base'
+const { width: WIDTH } = Dimensions.get("window");
+import {Container, Header, Left, Body, Right, Title, Subtitle ,Button , List , ListItem,Icon, Content,Separator} from 'native-base'
 
 
 class ParcoursDeSoin extends Component {
@@ -29,7 +33,7 @@ class ParcoursDeSoin extends Component {
     data:[]
   }
   fetchData= async()=>{
-    const response = await fetch('http://192.168.1.107:3000/parcoursoin');
+    const response = await fetch('http://192.168.1.107:3000/parcoursoin/0');
     const parcoursoin =await response.json();
     this.setState({data:parcoursoin});
   }
@@ -42,101 +46,347 @@ class ParcoursDeSoin extends Component {
 const { navigate } = this.props.navigation;
     return (
       <Container>
-             <Header style={{marginTop:35}}>
-                 <Left >
-                      <Icon name ="menu"  onPress={() =>
-                     this.props.navigation.openDrawer()
-                     } />
-                  </Left>
-               
-               <Body>
-                 <Title>
-                   Parcours de Soin :
-                 </Title>
-                 <Subtitle>User Name</Subtitle>
-               </Body>
-               <Right>
-                 <Button transparent>
-              <Icon name='search' />
-                </Button>
-               </Right>
-             </Header>
-
-
-      <View style ={{ flex:1}}>
-
-          <Text style={{backgroundColor: 'white',fontSize:20,marginLeft:10,marginRight:10,marginTop:20}}>La Liste d'historique des maladies avec les date , les ordonnances et les docteurs : </Text>
-
-
-         <FlatList
-
-         data={this.state.data}
-
-         keyExtractor={(item,index) => index.toString()}
-
-         renderItem={({item}) =>
-
-
-
-
-         <View style={{backgroundColor:'#e6e6e6',padding:10,margin:10}}>
-
-           <ListItem icon>
-              <Left>
-                  <Button onPress={() => navigate('Profile medecin')}>
-                      <Icon0 active name="doctor" />
-                  </Button>
-              </Left>
-              <Body>
-                  <Text>Nom du Docteur : {item.medecin}</Text>
-              </Body>
-          </ListItem>
-
-          <ListItem icon>
-              <Left>
-                  <Button style={{ backgroundColor: "white" }}>
-                      <Icon1 active name="medicinebox" />
-                  </Button>
-             </Left>
-          <Body>
-              <Text>Nom du maladie : {item.maladie}</Text>
-          </Body>
-         </ListItem>
-
-         <ListItem icon>
+        <ImageBackground source={bg} style={styles.Backgroundcontainer}>
+          <Content>
+          <Header
+            style={{
+              marginTop: 35,
+              backgroundColor: "#283593",
+              borderWidth: 1,
+              borderBottomColor: "white"
+            }}
+          >
             <Left>
-                <Button style={{ backgroundColor: "white" }}>
-                    <Icon2 active name="date-range" />
-                </Button>
+              <Icon
+                name="menu"
+                onPress={() => this.props.navigation.openDrawer()}
+              />
             </Left>
             <Body>
-                <Text>Date du consultation : {item.date}</Text>
+              <Title>Examen medicale :</Title>
+            
             </Body>
-        </ListItem>
+            <Right />
+          </Header>
+            <View style={{ flex: 1 ,alignItems:"center"}}>
+  <Image source={logo} style={styles.logo} />
+  <Text
+  style={{
+    fontFamily: "Ionicons",
+    textAlign: "center",
+    fontSize: 25,
+    marginTop: 10,
+    fontWeight: "bold",
+    color: "#0c75b0"
+  }}
+  >
+  Listes des examens medicaux
+  </Text>
+              <FlatList
+                data={this.state.data} //Getting the data stored from the response in the state
+                keyExtractor={(item, index) => index.toString()} //Key used to identify the data
+                renderItem={(
+                  { item } //Rendering items (expects a JSX Response wich is our FlatList)
+                ) => {
+                  var dates = item.dateconsulation; //Getting the date from db and it will be humanized
 
-        <ListItem icon>
-           <Left>
-               <Button style={{ backgroundColor: "white" }}>
-                   <Icon0 active name="note-text" />
-               </Button>
-           </Left>
-           <Body>
-               <Text>Ordonnances : {item.ordonnance}</Text>
-           </Body>
-       </ListItem>
-           </View>
 
+                  return (
+                    <View style={{ flex: 1, color: "red", width: WIDTH }}>
 
+                      <ListItem thumbnail>
+                        <Left style={{ marginTop: 15 }}>
+                          <Icon0
+                            active
+                            name="doctor"
+                            style={{ fontSize: 24, justifyContent: "center" }}
+                          />
+                        </Left>
 
-         }
+                        <Body style={{ marginTop: 15 }}>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 20,
+                              fontWeight: "bold",
+                              color: "#0c75b0",
+                              textAlign: "center"
+                            }}
+                          >
+                            Nom Docteur :
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 15,
+                              fontWeight: "bold",
+                              color: "#cf1d76",
+                              textAlign: "center"
+                            }}
+                          >
+                            Dr. {item.lnmedecin} {item.fnmedecin}
+                          </Text>
+                        </Body>
+                        <Right style={{ marginTop: 15 }}>
+                        <Icon3
+                          active
+                          name="angle-double-right"
+                          style={{ fontSize: 24, justifyContent: "center" }}
+                            onPress={() => navigate('MedecinProfile', {idmedecin: idmedecin}) }
+                        />
+                        </Right>
+                      </ListItem>
+                      <ListItem thumbnail>
+                        <Left>
+                          <Icon0
+                            active
+                            name="account-search"
+                            style={{ fontSize: 24, justifyContent: "center" }}
+                          />
+                        </Left>
+                        <Body>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 20,
+                              fontWeight: "bold",
+                              color: "#0c75b0",
+                              textAlign: "center"
+                            }}
+                          >
+                          maladie analysée
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 15,
+                              fontWeight: "bold",
+                              color: "#cf1d76",
+                              textAlign: "center"
+                            }}
+                          >
+                            {item.maladie}
+                          </Text>
+                        </Body>
+                        <Right style={{ marginTop: 15 }}>
+                        <Icon0
+                          active
+                          name="calendar-clock"
+                          style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                        />
+                        </Right>
+                      </ListItem>
+                      <ListItem thumbnail>
+                        <Left>
+                          <Icon0
+                            active
+                            name="note-text"
+                            style={{ fontSize: 24, justifyContent: "center" }}
+                          />
+                        </Left>
+                        <Body>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 20,
+                              fontWeight: "bold",
+                              color: "#0c75b0",
+                              textAlign: "center"
+                            }}
+                          >
+                            	description
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 15,
+                              fontWeight: "bold",
+                              color: "#cf1d76",
+                              textAlign: "center"
+                            }}
+                          >
+                          {item.description}
+                          </Text>
+                        </Body>
+                        <Right style={{ marginTop: 15 }}>
+                        <Icon0
+                          active
+                          name="calendar-remove"
+                          style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                        />
+                        </Right>
+                      </ListItem>
+                      <ListItem thumbnail>
+                        <Left>
+                          <Icon0
+                            active
+                            name="pill"
+                            style={{ fontSize: 24, justifyContent: "center" }}
+                          />
+                        </Left>
+                        <Body>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 20,
+                              fontWeight: "bold",
+                              color: "#0c75b0",
+                              textAlign: "center"
+                            }}
+                          >
+                              Medicaments suggerer
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 15,
+                              fontWeight: "bold",
+                              color: "#cf1d76",
+                              textAlign: "center"
+                            }}
+                          >
+                            {item.medicament}
+                          </Text>
+                        </Body>
+                        <Right style={{ marginTop: 15 }}>
+                        <Icon0
+                          active
+                          name="calendar-remove"
+                          style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                        />
+                        </Right>
+                      </ListItem>
+                      <ListItem thumbnail>
+                        <Left>
+                          <Icon0
+                            active
+                            name="calendar-remove"
+                            style={{ fontSize: 24, justifyContent: "center" }}
+                          />
+                        </Left>
+                        <Body>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 20,
+                              fontWeight: "bold",
+                              color: "#0c75b0",
+                              textAlign: "center"
+                            }}
+                          >
+                              Utilisation
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 15,
+                              fontWeight: "bold",
+                              color: "#cf1d76",
+                              textAlign: "center"
+                            }}
+                          >
+                            {item.utilisation}
+                          </Text>
+                        </Body>
+                        <Right style={{ marginTop: 15 }}>
+                        <Icon0
+                          active
+                          name="calendar-remove"
+                          style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                        />
+                        </Right>
+                      </ListItem>
+                      <ListItem thumbnail>
+                        <Left>
+                          <Icon0
+                            active
+                            name="calendar"
+                            style={{ fontSize: 24, justifyContent: "center" }}
+                          />
+                        </Left>
+                        <Body>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 20,
+                              fontWeight: "bold",
+                              color: "#0c75b0",
+                              textAlign: "center"
+                            }}
+                          >
+                              Duree
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 15,
+                              fontWeight: "bold",
+                              color: "#cf1d76",
+                              textAlign: "center"
+                            }}
+                          >
+                          {item.duree}
+                          </Text>
+                        </Body>
+                        <Right style={{ marginTop: 15 }}>
+                        <Icon0
+                          active
+                          name="calendar-remove"
+                          style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                        />
+                        </Right>
+                      </ListItem>
+                      <ListItem thumbnail>
+                        <Left>
+                          <Icon0
+                            active
+                            name="calendar-check"
+                            style={{ fontSize: 24, justifyContent: "center" }}
+                          />
+                        </Left>
+                        <Body>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 20,
+                              fontWeight: "bold",
+                              color: "#0c75b0",
+                              textAlign: "center"
+                            }}
+                          >
+                              Date de la consultation
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: "Ionicons",
+                              fontSize: 15,
+                              fontWeight: "bold",
+                              color: "#cf1d76",
+                              textAlign: "center"
+                            }}
+                          >
+                            {item.dateconsulation}
+                          </Text>
+                        </Body>
+                        <Right style={{ marginTop: 15 }}>
+                        <Icon0
+                          active
+                          name="calendar-remove"
+                          style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                        />
+                        </Right>
+                      </ListItem>
+                      <Separator bordered>
 
-
-
-         />
-      </View>
-
-</Container>
-
+         </Separator>
+                    </View>
+                  );
+                }}
+              />
+            </View>
+          </Content>
+        </ImageBackground>
+      </Container>
     );
   }
 
@@ -151,5 +401,16 @@ const styles =StyleSheet.create({
 
 
 
+    },
+    Backgroundcontainer: {
+      flex: 1,
+
+      alignItems: "center"
+    },
+    logo: {
+      justifyContent: "center",
+      width: 128,
+      height: 155,
+      marginTop: 5
     }
 })

@@ -111,7 +111,10 @@ const RendezvousTabNavigator = createBottomTabNavigator(
 const StackNavigator = createStackNavigator(
   //Creating a stack StackNavigator to NEST the tab navigator in it so it can be Nested inside the drawer Navigator
   {
-    RendezvousTabNavigator: RendezvousTabNavigator
+    RendezvousTabNavigator: RendezvousTabNavigator,
+    MedecinProfile:{
+      screen:MedecinProfile
+    }
   },
   {
     defaultNavigationOptions: ({ navigation }) => {
