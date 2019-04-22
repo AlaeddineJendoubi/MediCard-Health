@@ -121,14 +121,14 @@ componentDidUpdate() {
 }
 addRendezVous = () => {
  const date = moment(this.state.date).format("YYYY/MM/DD");
-
+  const { navigate } = this.props.navigation;
  const docSpec = toString(this.props.specilaite)
  const alertMsg = 'Le Docteur '+docSpec
  Alert.alert(
    'Votre demande a été soumise, vous serez notifié de son acceptation',
    alertMsg,
    [
-     {text: 'Consulter mes demandes ', onPress: () => console.log('Ask me later pressed')},
+     {text: 'Consulter mes demandes ', onPress: () => navigate('Suspendu', {idmedecin: 1}) },
      {
        text: 'Soumettre une autre demande',
        style: 'cancel',
@@ -166,6 +166,7 @@ addRendezVous = () => {
 
 
 render() {
+
         if (this.state.isLoadingSpec||this.state.isLoadingDoc) {
           return (
             <View >
