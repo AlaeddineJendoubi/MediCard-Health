@@ -37,12 +37,12 @@ import bg from "../../assets/images/tryb.png";
 import logo from "../../assets/images/trylogo.png";
 const { width: WIDTH } = Dimensions.get("window");
 
-class Historique extends Component {
+class Suspendu extends Component {
   state = {
     data: []
   };
   fetchData = async () => {
-    const response = await fetch("http://192.168.1.107:3000/rendezvousExpired/1");
+    const response = await fetch("http://192.168.1.107:3000/rendezvousPinned/1");
     const rendezvous = await response.json(); //fetching response into rendezvous
     this.setState({ data: rendezvous }); //Setting it into state
   };
@@ -71,7 +71,7 @@ style={{
   color: "#0c75b0"
 }}
 >
-Les rendez-vous passé
+Les rendez-vous qui n'ont pas été acceptés
 </Text>
               <FlatList
                 data={this.state.data}
@@ -101,7 +101,7 @@ Les rendez-vous passé
                               textAlign: "center"
                             }}
                           >
-                            vous avais un rendez-vous avec
+                            Nom du docteur
                           </Text>
                           <Text
                             style={{
@@ -134,7 +134,7 @@ Les rendez-vous passé
                               textAlign: "center"
                             }}
                           >
-                            à la date du
+                            Date du rendezvous
                           </Text>
                           <Text
                             style={{
@@ -169,7 +169,7 @@ Les rendez-vous passé
                               textAlign: "center"
                             }}
                           >
-                            qui a expiré
+                            ça va expier 
                           </Text>
                           <Text
                             style={{
@@ -200,7 +200,7 @@ Les rendez-vous passé
     );
   }
 }
-export default Historique;
+export default Suspendu;
 const styles = StyleSheet.create({
   container: {
     flex: 1

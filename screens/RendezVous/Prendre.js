@@ -6,7 +6,12 @@ import {
   ListView,
   ImageBackground,
   Dimensions,
-  Image
+  Image,
+  Alert,
+    Picker,
+    AppRegistry,
+    ActivityIndicator,
+    Platform
 } from "react-native";
 import {
   Container,
@@ -26,7 +31,7 @@ import {
   List,
   ListItem,
   Form,
-  Picker,
+
   DatePicker
 } from "native-base";
 import Icon0 from "react-native-vector-icons/MaterialCommunityIcons";
@@ -39,78 +44,190 @@ import logo from "../../assets/images/trylogo.png";
 import Iconbtn from "@expo/vector-icons/Ionicons";
 const { width: WIDTH } = Dimensions.get("window");
 
+const ip = "192.168.1.107";
+
+
 class Prendre extends Component {
-  constructor(props) {
-     super(props);
-     this.state = {
-       selected: "key2"
-     };
-     this.state = { chosenDate: new Date() };
-   this.setDate = this.setDate.bind(this);
-   }
-   setDate(newDate) {
-  this.setState({ chosenDate: newDate });
+  constructor(props)
+  {
+
+    super(props);
+
+    this.state = {
+
+    isLoadingSpec: true,
+    isLoadingDoc: true,
+
+    PickerValueHolder : '',
+    specilaite : '',
+    idmedecin : '',
+    medecin:'',
+    chosenDate : new Date(),
 }
-   onValueChange(value: string) {
-     this.setState({
-       selected: value
-     });
-   }
 
-  render() {
+   this.setDate = this.setDate.bind(this);
+}
+setDate(newDate) {
+this.setState({ chosenDate: newDate })
+  }
 
-    return (
-      <Container  style={{alignItems:"center"}}>
-        <ImageBackground source={bg} style={styles.Backgroundcontainer}>
-          <Content>
 
-          <Form  style={{alignItems:"center", marginTop:15}}>
-            <Image source={logo} style={styles.logo} />
-          <Text   style={{
-              fontFamily: "Ionicons",
-              fontSize: 20,
-              fontWeight: "bold",
-              color: "#0c75b0",
-              textAlign: "center",
-              marginTop:35
-            }}> votre rendez vous avec le docteur du spécialité  </Text>
+
+  fetchDocs = async () => {
+    const api = "http://"+ip+":3000/medecinSpecialite/"+this.state.specilaite;
+    const response = await fetch(api)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoadingDoc: false,
+          dataSources: responseJson
+        }, function() {
+          // In this block you can do something with new state.
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  };
+  fetchSpecs = async () => {
+    const response = await fetch('http://192.168.1.107:3000/specilaite')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoadingSpec: false,
+          dataSource: responseJson
+        }, function() {
+          // In this block you can do something with new state.
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  };
+
+  componentDidMount() {
+this.state.specilaite = 'dentiste'
+       this.fetchSpecs()
+      // this.fetchDocs()
+
+}
+componentDidUpdate() {
+  // Typical usage (don't forget to compare props):
+
+    this.fetchDocs(this.props.specilaite);
+
+}
+addRendezVous = () => {
+ const date = moment(this.state.date).format("YYYY/MM/DD");
+
+ const docSpec = toString(this.props.specilaite)
+ const alertMsg = 'Le Docteur '+docSpec
+ Alert.alert(
+   'Votre demande a été soumise, vous serez notifié de son acceptation',
+   alertMsg,
+   [
+     {text: 'Consulter mes demandes ', onPress: () => console.log('Ask me later pressed')},
+     {
+       text: 'Soumettre une autre demande',
+       style: 'cancel',
+     },
+
+   ],
+   {cancelable: false},
+ );
+
+ var details = {
+     'idmedecin': parseInt(this.state.medecin),
+     'idpatient': 1,
+     'etat': 1,
+     'date': date
+
+ };
+
+ var formBody = [];
+ for (var property in details) {
+   var encodedKey = encodeURIComponent(property);
+   var encodedValue = encodeURIComponent(details[property]);
+   formBody.push(encodedKey + "=" + encodedValue);
+ }
+ formBody = formBody.join("&");
+
+ fetch('http://192.168.1.107:3000/rendezvousinsert', {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+   },
+   body: formBody
+ })
+}
+
+
+
+render() {
+        if (this.state.isLoadingSpec||this.state.isLoadingDoc) {
+          return (
+            <View >
+            <ActivityIndicator />
+            </View>
+          );
+        }
+
+return (
+   <Container  style={{alignItems:"center"}}>
+  <ImageBackground source={bg} style={styles.Backgroundcontainer}>
+  <Content>
+  <Form  style={{alignItems:"center"}}>
+          <Image source={logo} style={styles.logo} />
+        <Text   style={{
+            fontFamily: "Ionicons",
+            fontSize: 20,
+            fontWeight: "bold",
+            color: "#0c75b0",
+            textAlign: "center",
+            marginTop:35
+          }}> votre rendez vous avec le docteur du spécialité  </Text>
           <Picker
-            mode="dialog"
-            iosHeader="Select your SIM"
-            iosIcon={<Icon name="arrow-down" />}
-            style={{ width: WIDTH }}
-            selectedValue={this.state.selected}
-            onValueChange={this.onValueChange.bind(this)}
-            itemStyle={{ backgroundColor: "grey", color: "blue", fontFamily:"Ionicons", fontSize:17 }}
+          mode="dialog"
 
+          iosIcon={<Icon name="arrow-down" />}
+          style={{ width: WIDTH }}
 
-          >
-            <Picker.Item label="Wallet" value="key0" />
-            <Picker.Item label="ATM Card" value="key1" />
-            <Picker.Item label="Debit Card" value="key2" />
-            <Picker.Item label="Credit Card" value="key3" />
-            <Picker.Item label="Net Banking" value="key4" />
-          </Picker>
-          <Text   style={{
-              fontFamily: "Ionicons",
-              fontSize: 20,
-              fontWeight: "bold",
-              color: "#0c75b0",
-              textAlign: "center"
-            }}> Au nom du   </Text>
-          <Picker
-            mode="dialog"
-            iosHeader="Select your SIM"
-            iosIcon={<Icon name="arrow-down" />}
-            style={{ width: WIDTH }}
-            selectedValue={this.state.selected}
-            onValueChange={this.onValueChange.bind(this)}
-          >
-            <Picker.Item label="Wallet" value="key0" />
-            <Picker.Item label="ATM Card" value="key1" />
-            <Picker.Item label="Debit Card" value="key2" />
-            <Picker.Item label="Credit Card" value="key3" />
-            <Picker.Item label="Net Banking" value="key4" />
+          itemStyle={{ backgroundColor: "grey", color: "blue", fontFamily:"Ionicons", fontSize:17 }}
+
+           selectedValue={this.state.specilaite}
+
+           onValueChange={(itemValue, itemIndex) => this.setState({specilaite: itemValue})} >
+
+           { this.state.dataSource.map((item, key)=>(
+           <Picker.Item label={item.specialitemedecin} value={item.specialitemedecin} key={key} />)
+           )}
+
+         </Picker>
+         <Text   style={{
+             fontFamily: "Ionicons",
+             fontSize: 20,
+             fontWeight: "bold",
+             color: "#0c75b0",
+             textAlign: "center"
+           }}> Au nom du   </Text>
+           <Picker
+           mode="dialog"
+
+           iosIcon={<Icon name="arrow-down" />}
+           style={{ width: WIDTH }}
+
+           itemStyle={{ backgroundColor: "grey", color: "blue", fontFamily:"Ionicons", fontSize:17 }}
+
+            selectedValue={this.state.medecin}
+
+            onValueChange={(itemValue, itemIndex) => this.setState({medecin: itemValue})} >
+
+            { this.state.dataSources.map((item, key)=>(
+            <Picker.Item label={item.fnmedecin} value={item.idmedecin} key={key} />)
+            )}
+
           </Picker>
           <Text   style={{
               fontFamily: "Ionicons",
@@ -119,65 +236,68 @@ class Prendre extends Component {
               color: "#0c75b0",
               textAlign: "center"
             }}> A la date du</Text>
-          <DatePicker
-              defaultDate={new Date(2018, 4, 4)}
-              minimumDate={new Date(2018, 1, 1)}
-              maximumDate={new Date(2018, 12, 31)}
-              locale={"en"}
-              timeZoneOffsetInMinutes={undefined}
-              modalTransparent={false}
-              animationType={"fade"}
-              androidMode={"default"}
-              placeHolderText="cliquez ici pour choisir une date"
-              textStyle={{ fontFamily: "Ionicons",
+            <DatePicker
+                defaultDate={new Date(2018, 4, 4)}
+                minimumDate={new Date(2019, 4, 21)}
+                maximumDate={new Date(2025, 12, 31)}
+                locale={"fr"}
+                timeZoneOffsetInMinutes={undefined}
+                modalTransparent={false}
+                animationType={"fade"}
+                androidMode={"default"}
+                placeHolderText="cliquez ici pour choisir une date"
+                textStyle={{ fontFamily: "Ionicons",
 
-              fontWeight: "bold",
-              color: "#cf1d76",
-              textAlign: "center" }}
-              placeHolderTextStyle={{ color: "#D3D3D3" }}
-              onDateChange={this.setDate}
-              disabled={false}
-              />
-              <Text   style={{
-                  fontFamily: "Ionicons",
-                  fontSize: 15,
-                  fontWeight: "bold",
-                  color: "#cf1d76",
-                  textAlign: "center"
-                }}>
-                Date: {this.state.chosenDate.toString().substr(4, 12)}
-              </Text>
-              <Button
-                style={{
-                  justifyContent: "center",
-                  marginHorizontal: "30%",
-                  color: "#0c75b0",
-                  marginTop: 30,
-                  width: 170
-                }}
-
-              >
-                <Iconbtn
-                  name="md-checkbox"
-                  style={{
-                    fontSize: 24,
-                    marginLeft: 5,
-                    borderRadius: 25,
-                    color: "white"
-                  }}
+                fontWeight: "bold",
+                color: "#cf1d76",
+                textAlign: "center" }}
+                placeHolderTextStyle={{ color: "#D3D3D3" }}
+                onDateChange={this.setDate,(date) => this.setState({date})}
+                disabled={false}
                 />
-                <Text>envoyer</Text>
-              </Button>
-        </Form>
+                <Text   style={{
+                    fontFamily: "Ionicons",
+                    fontSize: 15,
+                    fontWeight: "bold",
+                    color: "#cf1d76",
+                    textAlign: "center"
+                  }}>
+                  Date:  {this.state.chosenDate.toString().substr(4, 12)}
+                </Text>
+                <Button
+                onPress= {this.addRendezVous.bind(this)}
+                  style={{
+                    justifyContent: "center",
+                    marginHorizontal: "30%",
+                    color: "#0c75b0",
+                    marginTop: 30,
+                    width: 170
+                  }}
 
+                >
+                  <Iconbtn
+                    name="md-checkbox"
+                    style={{
+                      fontSize: 24,
+                      marginLeft: 5,
+                      borderRadius: 25,
+                      color: "white"
+                    }}
+                  />
+                  <Text>envoyer</Text>
+                </Button>
+  </Form>
+  </Content>
+  </ImageBackground>
 
-          </Content>
-        </ImageBackground>
-      </Container>
-    );
-  }
+</Container>
+);
+
+        }
 }
 export default Prendre;
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1

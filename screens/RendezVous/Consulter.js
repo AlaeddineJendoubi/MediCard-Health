@@ -36,12 +36,20 @@ import bg from "../../assets/images/tryb.png";
 import logo from "../../assets/images/trylogo.png";
 const { width: WIDTH } = Dimensions.get("window");
 
+const id = "1";
+const ip = "192.168.1.107";
+const api = "http://"+ip+":3000/rendezvousValider/"+id;
+
+
+
+
 class Consulter extends Component {
   state = {
     data: []
   };
+
   fetchData = async () => {
-    const response = await fetch("http://192.168.1.107:3000/rendezvousValider/1"); //Api link
+    const response = await fetch(api); //Api link
     const rendezvous = await response.json(); //fetching response into rendezvous
     this.setState({ data: rendezvous }); //Setting it into state
   };
@@ -71,7 +79,8 @@ class Consulter extends Component {
     color: "#0c75b0"
   }}
 >
- rendez-vous à venir
+rendez-vous à venir
+
 </Text>
               <FlatList
                 data={this.state.data} //Getting the data stored from the response in the state

@@ -22,6 +22,7 @@ import {
 import Consulter from "./screens/RendezVous/Consulter";
 import Prendre from "./screens/RendezVous/Prendre";
 import Historique from "./screens/RendezVous/Historique";
+import Suspendu from "./screens/RendezVous/Suspendu";
 import ParcoursDeSoin from "./screens/ParcoursDeSoin/ParcoursDeSoin";
 import MedecinProfile from "./screens/MedecinProfile/MedecinProfile";
 import Analyses from "./screens/Analyses/Analyses";
@@ -97,6 +98,15 @@ const RendezvousTabNavigator = createBottomTabNavigator(
           <Icon1 name="calendar-times-o" size={20} style={{ color: "red" }} />
         )
       }
+    },
+    Suspendu: {
+      screen: Suspendu,
+      navigationOptions: {
+        tabBarLabel: "Suspendu",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon1 name="calendar-minus-o" size={20} style={{ color: "red" }} />
+        )
+      }
     }
   },
   {
@@ -128,9 +138,9 @@ const StackNavigator = createStackNavigator(
           />
         ),
         headerStyle: {
-          backgroundColor: "#283593",
+          backgroundColor: "white",
           borderWidth: 1,
-          borderBottomColor: "white"
+          borderBottomColor: "#cfdef7"
         }
       };
     }
