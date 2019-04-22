@@ -1,51 +1,101 @@
 import React, { Component } from 'react';
-import { StyleSheet,ImageBackground, TouchableOpacity, Dimensions, Icon , Text,TextInput, View , Image,Button} from 'react-native';
-import{Thumbnail} from 'native-base';
-import logo from '../../assets/images/trylogo.png'
-import bg from '../../assets/images/trybgg.png'
+import { StyleSheet,
+  ImageBackground, 
+  TouchableOpacity,
+   Dimensions, Icon , 
+   Text,TextInput, View , 
+   AsyncStorage ,
+   Image} from 'react-native';
+   import logo from '../../assets/images/trylogo.png'
+   import bg from '../../assets/images/trybgg.png'
 
 
 const {width : WIDTH} = Dimensions.get('window')
 
  class Login extends Component {
-  //   onPress={() => this.props.navigation.navigate('Profil')}
-  render() {
-    const {navigate} = this.props.navigation;
-    return (
-      <ImageBackground source={bg}  style={styles.Backgroundcontainer} >
-      <View style={styles.logoContainer}>
 
+  constructor(props){
+    super(props);
+    this.state = {
+      code: '' , 
+      name: '' , }
+  }
+
+  //for the test comment this function 
+/* 
+ componentDidMount(){
+    this._loadInitialState().done();
+ }*/
+ 
+  _loadInitialState = async () => {
+      var value = await AsyncStorage.getItem('user');
+      if (value !== null ){
+        this.props.navigation.navigate('Accueil');
+      }
+  }
+  
+  render() {
+    //const {navigate} = this.props.navigation;
+    return (
+      <ImageBackground source={bg}  style={styles.Backgroundcontainer} > 
+      <View style={styles.logoContainer}>
       <Image  source = {logo} style = {styles.logo}  />
        </View>
        <View>
-         <TextInput
-         style = {styles.input }
-         placeholder  = {' Veuillez saisir votre identifiant '}
-         placeholderTextColor = {'black'}
+         <TextInput 
+         style = {styles.input } 
+         placeholder  = {''}
+         secureTextEntry = {true}
          underlineColorAndroid='transparent'
-         keyboardType = 'email-address'
+         keyboardType = 'numeric'
+         onChangeText = {(code) => this.setState({code})}
        />
-       <TextInput
-       style = {styles.input }
-       placeholder  = {' Veuillez saisir votre mot de passe '}
-       placeholderTextColor = {'black'}
-       underlineColorAndroid='transparent'
-       keyboardType = 'numeric'
-     />
 
        </View>
 
-      <TouchableOpacity style = {styles.btnLogin} onPress={() => navigate('Accueil', {name: 'Jane'})}>
-
+       <TouchableOpacity
+        style = {styles.btnLogin}
+        onPress={this.login}>
+       
        <Text style = {styles.text} >
-                 Login
+                 Login 
        </Text>
        </TouchableOpacity>
-
-
+     
        </ImageBackground>
     );
   }
+
+  login = () => {
+   // alert (this.state.code);
+  fetch('http://192.168.43.33:3000/users' , {
+    method: 'POST' ,
+    headers: {
+      'Accept' : 'application/json' ,
+      'Content-Type' : 'application/json' ,
+
+    } ,
+    body : JSON.stringify({
+      code : this.state.code ,
+      name: this.state.name
+    })
+  })
+      .then((response) => response.json())
+      .then((res) => {
+
+      
+
+        if (res.success === true){
+          AsyncStorage.setItem('user' , res.user)
+          this.props.navigation.navigate('Accueil')
+          global.code = this.state.code
+
+        } else {
+          alert(res.message);
+        }
+      }) .done();
+  }
+
 }
 
 
@@ -68,40 +118,39 @@ const styles = StyleSheet.create({
   },
 
   logoContainer:{
-
+   
     alignItems : 'center'
   },
 
   logo:{
-    width:256,
-    height:313
-
-  },
+    width:160,
+    height:120 
+  
+  }, 
   input : {
-
+  
     width : WIDTH - 55,
     height : 45 ,
     borderRadius: 25 ,
     fontSize : 16 ,
     paddingLeft : 45 ,
-    backgroundColor: '#126BA2',
+    backgroundColor: '#34e7e4',
     color: 'rgba(255,255, 255,0.7)',
-    marginHorizontal: 25,
-    marginTop :40
-  } ,
+    marginHorizontal: 25
+  } , 
 
   btnLogin: {
     width : WIDTH - 55,
     height : 45 ,
     borderRadius: 25 ,
-    backgroundColor: '#CD1B75' ,
+    backgroundColor: '#1e272e' ,
     justifyContent : 'center' ,
     marginTop : 30
-  } ,
+  } , 
   text: {
     color : '#ecf0f1' ,
-    fontSize : 22 ,
-    fontWeight: 'bold' ,
+    fontSize : 22 , 
+    fontWeight: 'bold' , 
     textAlign: 'center'
   }
 });
