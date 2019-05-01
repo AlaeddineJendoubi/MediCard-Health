@@ -1,29 +1,332 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+  ListView,
 } from 'react-native';
-
-export default class MedecinProfile extends Component {
-  static navigationOptions = {
-     title: 'Stack'
+import {
+  Container,
+  Header,
+  Left,
+  Body,
+  Right,
+  Title,
+  Subtitle,
+  Icon,
+  Content,
+  Footer,
+  FooterTab,
+  Button,
+  Text,
+  Badge,
+  List,
+  ListItem,
+  Separator
+} from "native-base";
+const ip = "192.168.1.107";
+const { width: WIDTH } = Dimensions.get("window");
+import Icon0 from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon1 from "react-native-vector-icons/FontAwesome";
+class MedecinProfile extends Component {
+static navigationOptions = {
+     title: 'Profile Medecin '
    }
+   constructor(props)
+   {
+     super(props)
+     this.state = {
+       idmedecin : ''
+ }
+ const { navigation } = this.props;
+ this.state.idmedecin = navigation.getParam('idmedecin');
+
+   }
+   fetchData = async () => {
+
+    const api = "http://"+ip+":3000/medecin/"+this.state.idmedecin;
+     const response = await fetch(api); //Api link
+     const rendezvous = await response.json(); //fetching response into rendezvous
+     this.setState({ data: rendezvous }); //Setting it into state
+   };
+
+     componentDidMount() {
+       this.fetchData();
+     }
+
   render() {
+
     return (
+
       <View style={styles.container}>
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
-          <View style={styles.body}>
-            <View style={styles.bodyContent}>
-              <Text style={styles.name}>raouda chkir</Text>
-              <Text style={styles.info}>generaliste /</Text>
-          
+
+            <FlatList style ={{ marginTop:70}}
+              data={this.state.data} //Getting the data stored from the response in the state
+              keyExtractor={(item, index) => index.toString()} //Key used to identify the data
+              renderItem={(
+                { item } //Rendering items (expects a JSX Response wich is our FlatList)
+              ) => {
+
+                //var idmedecin= item.idmedecin;
+
+                return (
+                  <View style={{ flex: 1, color: "red", width: WIDTH }}>
+
+                    <ListItem thumbnail>
+                      <Left style={{ marginTop: 15 }}>
+                        <Icon0
+                          active
+                          name="doctor"
+                          style={{ fontSize: 24, justifyContent: "center" }}
+                        />
+                      </Left>
+
+                      <Body style={{ marginTop: 15 }}>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 20,
+                            fontWeight: "bold",
+                            color: "#0c75b0",
+                            textAlign: "center"
+                          }}
+                        >
+                          Nom du Docteur :
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 15,
+                            fontWeight: "bold",
+                            color: "#cf1d76",
+                            textAlign: "center"
+                          }}
+                        >
+                          Dr. {item.lnmedecin} {item.fnmedecin}
+                        </Text>
+                      </Body>
+                      <Right style={{ marginTop: 15 }}>
+                      <Icon1
+                        active
+                        name="angle-double-right"
+                        style={{ fontSize: 24, justifyContent: "center",opacity:0 }}
+
+                      />
+                      </Right>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon0
+                          active
+                          name="gender-male-female"
+                          style={{ fontSize: 24, justifyContent: "center" }}
+                        />
+                      </Left>
+                      <Body>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 20,
+                            fontWeight: "bold",
+                            color: "#0c75b0",
+                            textAlign: "center"
+                          }}
+                        >
+                          Sexe :
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 15,
+                            fontWeight: "bold",
+                            color: "#cf1d76",
+                            textAlign: "center"
+                          }}
+                        >
+                          {item.gendermedecin}
+                        </Text>
+                      </Body>
+                      <Right style={{ marginTop: 15 }}>
+                      <Icon0
+                        active
+                        name="calendar-clock"
+                        style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                      />
+                      </Right>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon0
+                          active
+                          name="medical-bag"
+                          style={{ fontSize: 24, justifyContent: "center" }}
+                        />
+                      </Left>
+                      <Body>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 20,
+                            fontWeight: "bold",
+                            color: "#0c75b0",
+                            textAlign: "center"
+                          }}
+                        >
+                          Spécialité :
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 15,
+                            fontWeight: "bold",
+                            color: "#cf1d76",
+                            textAlign: "center"
+                          }}
+                        >
+                          {item.specialitemedecin}
+                        </Text>
+                      </Body>
+                      <Right style={{ marginTop: 15 }}>
+                      <Icon0
+                        active
+                        name="calendar-remove"
+                        style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                      />
+                      </Right>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon0
+                          active
+                          name="email-outline"
+                          style={{ fontSize: 24, justifyContent: "center" }}
+                        />
+                      </Left>
+                      <Body>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 20,
+                            fontWeight: "bold",
+                            color: "#0c75b0",
+                            textAlign: "center"
+                          }}
+                        >
+                          Email Adress :
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 15,
+                            fontWeight: "bold",
+                            color: "#cf1d76",
+                            textAlign: "center"
+                          }}
+                        >
+                          {item.emailmedecin}
+                        </Text>
+                      </Body>
+                      <Right style={{ marginTop: 15 }}>
+                      <Icon0
+                        active
+                        name="calendar-remove"
+                        style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                      />
+                      </Right>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon0
+                          active
+                          name="phone"
+                          style={{ fontSize: 24, justifyContent: "center" }}
+                        />
+                      </Left>
+                      <Body>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 20,
+                            fontWeight: "bold",
+                            color: "#0c75b0",
+                            textAlign: "center"
+                          }}
+                        >
+                          numéro :
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 15,
+                            fontWeight: "bold",
+                            color: "#cf1d76",
+                            textAlign: "center"
+                          }}
+                        >
+                          {item.phonemedecin}
+                        </Text>
+                      </Body>
+                      <Right style={{ marginTop: 15 }}>
+                      <Icon0
+                        active
+                        name="calendar-remove"
+                        style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
+                      />
+                      </Right>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon0
+                          active
+                          name="home-modern"
+                          style={{ fontSize: 24, justifyContent: "center" }}
+                        />
+                      </Left>
+                      <Body>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 20,
+                            fontWeight: "bold",
+                            color: "#0c75b0",
+                            textAlign: "center"
+                          }}
+                        >
+                          Adresse :
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: "Ionicons",
+                            fontSize: 15,
+                            fontWeight: "bold",
+                            color: "#cf1d76",
+                            textAlign: "center"
+                          }}
+                        >
+                          {item.addrmedecin}
+                        </Text>
+                      </Body>
+                      <Right style={{ marginTop: 15 }}>
+                      <Icon0
+                        active
+                        name="google-maps"
+                        style={{ fontSize: 24, justifyContent: "center" }}
+                      />
+                      </Right>
+                    </ListItem>
+
+                  </View>
+                );
+              }}
+            />
+
             </View>
-        </View>
-      </View>
+
     );
   }
 }
@@ -85,3 +388,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#00BFFF",
   },
 });
+export default MedecinProfile;

@@ -61,9 +61,9 @@ const CustomDrawerComponent = props => (
     <ImageBackground source={drawerBg} style={styles.Backgroundcontainer}>
       <Image
         source={require("./assets/images/logo.png")}
-        style={{ height: 120, width: 120, borderRadius: 0, marginTop: 20 }}
+        style={{ height: 120, width: 120, borderRadius: 0, marginTop: 50 }}
       />
-      <ScrollView>
+      <ScrollView style={{marginTop:150}}>
         <DrawerItems {...props} />
       </ScrollView>
     </ImageBackground>
@@ -138,7 +138,7 @@ const StackNavigator = createStackNavigator(
           />
         ),
         headerStyle: {
-          backgroundColor: "white",
+          backgroundColor: "#283593",
           borderWidth: 1,
           borderBottomColor: "#cfdef7"
         }

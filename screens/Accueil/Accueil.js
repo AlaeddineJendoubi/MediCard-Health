@@ -244,7 +244,7 @@ class Accueil extends Component {
               </Button>
             </View>
           </Content>
-          
+
         </ImageBackground>
       </Container>
     );

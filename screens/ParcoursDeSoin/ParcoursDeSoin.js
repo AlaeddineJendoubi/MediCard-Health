@@ -33,7 +33,7 @@ class ParcoursDeSoin extends Component {
     data:[]
   }
   fetchData= async()=>{
-    const response = await fetch('http://192.168.1.107:3000/parcoursoin/0');
+    const response = await fetch('http://192.168.1.107:3000/parcoursoin/2');
     const parcoursoin =await response.json();
     this.setState({data:parcoursoin});
   }
@@ -64,7 +64,7 @@ const { navigate } = this.props.navigation;
             </Left>
             <Body>
               <Title>Examen medicale :</Title>
-            
+
             </Body>
             <Right />
           </Header>
@@ -128,12 +128,7 @@ const { navigate } = this.props.navigation;
                           </Text>
                         </Body>
                         <Right style={{ marginTop: 15 }}>
-                        <Icon3
-                          active
-                          name="angle-double-right"
-                          style={{ fontSize: 24, justifyContent: "center" }}
-                            onPress={() => navigate('MedecinProfile', {idmedecin: idmedecin}) }
-                        />
+
                         </Right>
                       </ListItem>
                       <ListItem thumbnail>
@@ -246,86 +241,6 @@ const { navigate } = this.props.navigation;
                             }}
                           >
                             {item.medicament}
-                          </Text>
-                        </Body>
-                        <Right style={{ marginTop: 15 }}>
-                        <Icon0
-                          active
-                          name="calendar-remove"
-                          style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
-                        />
-                        </Right>
-                      </ListItem>
-                      <ListItem thumbnail>
-                        <Left>
-                          <Icon0
-                            active
-                            name="calendar-remove"
-                            style={{ fontSize: 24, justifyContent: "center" }}
-                          />
-                        </Left>
-                        <Body>
-                          <Text
-                            style={{
-                              fontFamily: "Ionicons",
-                              fontSize: 20,
-                              fontWeight: "bold",
-                              color: "#0c75b0",
-                              textAlign: "center"
-                            }}
-                          >
-                              Utilisation
-                          </Text>
-                          <Text
-                            style={{
-                              fontFamily: "Ionicons",
-                              fontSize: 15,
-                              fontWeight: "bold",
-                              color: "#cf1d76",
-                              textAlign: "center"
-                            }}
-                          >
-                            {item.utilisation}
-                          </Text>
-                        </Body>
-                        <Right style={{ marginTop: 15 }}>
-                        <Icon0
-                          active
-                          name="calendar-remove"
-                          style={{ fontSize: 24, justifyContent: "center" ,opacity:0}}
-                        />
-                        </Right>
-                      </ListItem>
-                      <ListItem thumbnail>
-                        <Left>
-                          <Icon0
-                            active
-                            name="calendar"
-                            style={{ fontSize: 24, justifyContent: "center" }}
-                          />
-                        </Left>
-                        <Body>
-                          <Text
-                            style={{
-                              fontFamily: "Ionicons",
-                              fontSize: 20,
-                              fontWeight: "bold",
-                              color: "#0c75b0",
-                              textAlign: "center"
-                            }}
-                          >
-                              Duree
-                          </Text>
-                          <Text
-                            style={{
-                              fontFamily: "Ionicons",
-                              fontSize: 15,
-                              fontWeight: "bold",
-                              color: "#cf1d76",
-                              textAlign: "center"
-                            }}
-                          >
-                          {item.duree}
                           </Text>
                         </Body>
                         <Right style={{ marginTop: 15 }}>

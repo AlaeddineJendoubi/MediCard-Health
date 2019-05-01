@@ -15,7 +15,8 @@
     "react-native-countdown-component": "^2.2.0",
     "react-native-moment-countdown": "0.0.2",
     "react-native-vector-icons": "^6.3.0",
-    "react-navigation": "^3.3.0"
+    "react-navigation": "^3.3.0",
+    "rn-pdf-reader-js": "^0.2.3"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

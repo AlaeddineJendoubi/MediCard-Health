@@ -1,59 +1,24 @@
-import React, { Component } from "react";
-import {
-  View,
-  Text,
-  StyleSheet
-} from "react-native";
-import {Left , Right, Icon, Header ,Body} from 'native-base'
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import PDFReader from 'rn-pdf-reader-js';
+import { Constants } from 'expo';
 
-
-class Analyses extends Component {
-
-  static navigationOptions = {
-    drawerIcon: ({tintColor}) => (
-      <Icon name = "images" style ={{ fontSize : 24 ,
-      color:tintColor}}/>
-    )
-  }
-
+export default class Analyses extends React.Component {
   render() {
     return (
-
-     <View style={ styles.container}>
-     <Header style={{marginTop:35}}>
-
-         <Left >
-              <Icon name ="menu"  onPress={() =>
-             this.props.navigation.openDrawer()
-             } />
-
-       </Left>
-       <Right>
-       </Right>
-       <Body>
-       </Body>
-
-       </Header>
-
-     <View style ={{ flex:1, alignItems:'center',justifyContent:'center'}}>
-           <Text>Analyses </Text>
-     </View>
-
-     </View>
-
+      <View style={styles.container}>
+        <PDFReader
+          source={{ uri: "http://www.ch-stdenis.fr/media-files/478/livret-biologique-2016-avril-2016.pdf" }}
+        />
+      </View>
     );
   }
-
 }
 
-export default Analyses;
-
-const styles =StyleSheet.create({
-    container : {
-
-      flex: 1,
-
-
-
-    }
-})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#ecf0f1',
+  },
+});
