@@ -236,6 +236,7 @@ const AppDrawerNavigator = createDrawerNavigator(
       }
     }
   },
+
   {
     contentComponent: CustomDrawerComponent,
     drawerWidth: width / 2,

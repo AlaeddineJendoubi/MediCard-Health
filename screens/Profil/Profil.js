@@ -20,7 +20,7 @@ class Profil extends Component {
 
   fetchData= async()=>{
     const codeID = global.code
-    const response = await fetch('http://192.168.88.1:3000/users/profil/'+codeID);
+    const response = await fetch('http://192.168.1.107:3001/users/profil/'+codeID);
     const p =await response.json();
     this.setState({data:p});
   }
@@ -104,18 +104,26 @@ handleSlide = type => {
       <ImageBackground source={bg}  style={styles.Backgroundcontainer}  >
       <View style={styles.container}>
       <View style={styles.header}>
-        <Header style ={{backgroundColor : "#FFFFFF" }} >
-          <Left style ={{top:10 , flex:1 }} >
-            <Icon name ="menu"  onPress={() =>
-                        this.props.navigation.openDrawer()} />
-            </Left>
-            <Right style ={{top:10 , flex:1 }}>
-                <TouchableOpacity    onPress={this.logout}>
+      <Header
+        style={{
+          marginTop: 35,
+          backgroundColor: "#283593",
+          borderWidth: 1,
+          borderBottomColor: "white"
+        }}
+      >
+        <Left>
+          <Icon
+            name="menu"
+            onPress={() => this.props.navigation.openDrawer()}
+          />
+        </Left>
+        <Body>
+          <Title>Profil :</Title>
 
-                <Text> Logout </Text>
-                </TouchableOpacity>
-            </Right>
-          </Header>
+        </Body>
+        <Right />
+      </Header>
           <View style={styles.headerContent}>
             <Image style={styles.avatar}source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
             <FlatList data={this.state.data}keyExtractor={(item,index) =>
@@ -132,20 +140,20 @@ handleSlide = type => {
             <View style={{ flex: 1 }}>
               <View style={{width: "90%",marginLeft: "auto",marginRight: "auto"}}>
                 <View style={{flexDirection: "row",marginTop: 10,marginBottom: 5,height: 40,position: "relative"}}>
-                  <Animated.View style={{position: "absolute",width: "50%",height: "100%",top: 0,left: 0,backgroundColor: "#34e7e4",borderRadius: 4,transform: [{translateX}]}}/>
-                  <TouchableOpacity style={{flex: 1,justifyContent: "center",alignItems: "center",borderWidth: 1,borderColor: "#34e7e4",borderRadius: 4,borderRightWidth: 0,borderTopRightRadius: 0,borderBottomRightRadius: 0}}onLayout={event =>
+                  <Animated.View style={{position: "absolute",width: "50%",height: "100%",top: 0,left: 0,backgroundColor: "#283593",borderRadius: 4,transform: [{translateX}]}}/>
+                  <TouchableOpacity style={{flex: 1,justifyContent: "center",alignItems: "center",borderWidth: 1,borderColor: "#283593",borderRadius: 4,borderRightWidth: 0,borderTopRightRadius: 0,borderBottomRightRadius: 0}}onLayout={event =>
                                       this.setState({xTabOne: event.nativeEvent.layout.x})}onPress={() =>
                                       this.setState({ active: 0 }, () =>
                                       this.handleSlide(xTabOne))}>
-                    <Text style={{color: active === 0 ? "#fff" : "#34e7e4" ,  fontSize:15}}>
+                    <Text style={{color: active === 0 ? "#fff" : "#283593" ,  fontSize:15}}>
                                           Personal information
                     </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={{flex: 1,justifyContent: "center",alignItems: "center",borderWidth: 1,borderColor: "#34e7e4",borderRadius: 4,borderLeftWidth: 0,borderTopLeftRadius: 0,borderBottomLeftRadius: 0}}onLayout={event =>
+                  <TouchableOpacity style={{flex: 1,justifyContent: "center",alignItems: "center",borderWidth: 1,borderColor: "#283593",borderRadius: 4,borderLeftWidth: 0,borderTopLeftRadius: 0,borderBottomLeftRadius: 0}}onLayout={event =>
                                       this.setState({xTabTwo: event.nativeEvent.layout.x})}onPress={() =>
                                       this.setState({ active: 1 }, () =>
                                       this.handleSlide(xTabTwo))}>
-                    <Text style={{color: active === 1 ? "#fff" : "#34e7e4" ,  fontSize:15}}>
+                    <Text style={{color: active === 1 ? "#fff" : "#283593" ,  fontSize:15}}>
                                           Etat physique
                     </Text>
                   </TouchableOpacity>
@@ -252,15 +260,12 @@ handleSlide = type => {
 
     );
   }
-  logout = () => {
-    this.props.navigation.navigate('Login');
 
-  }
 }
 export default Profil;
 const styles = StyleSheet.create({
   header:{
-    backgroundColor: "#34e7e4",
+    backgroundColor: "#283593",
   },
 
   headerContent:{
@@ -293,7 +298,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   body:{
-    backgroundColor: "#FFFFFF",
+
     height:500,
 
     marginTop: 10

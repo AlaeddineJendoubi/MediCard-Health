@@ -1,16 +1,37 @@
 import React, { Component } from 'react';
-import { StyleSheet,ImageBackground, TouchableOpacity, Dimensions, Icon , Text,TextInput, View , Image,Button} from 'react-native';
+import { StyleSheet,ImageBackground,    AsyncStorage , TouchableOpacity, Dimensions, Icon , Text,TextInput, View , Image,Button} from 'react-native';
 import{Thumbnail} from 'native-base';
 import logo from '../../assets/images/trylogo.png'
 import bg from '../../assets/images/trybgg.png'
 import { LocalAuthentication } from 'expo';
 
 const {width : WIDTH} = Dimensions.get('window')
-
  class Login extends Component {
   //   onPress={() => this.props.navigation.navigate('Profil')}
 
+  constructor(props){
+
+  super(props);
+  this.state = {
+    code: '' ,
+     }
+}
+
+/*  componentDidMount(){
+     this._loadInitialState().done();
+     AsyncStorage.clear();
+  }
+*/
+/*   _loadInitialState = async () => {
+       var value = await AsyncStorage.getItem('user');
+       if (value !== null ){
+         this.props.navigation.navigate('Accueil');
+       }
+   }*/
+
+
   render() {
+
     const {navigate} = this.props.navigation;
       LocalAuthentication.hasHardwareAsync()
       LocalAuthentication.supportedAuthenticationTypesAsync()
@@ -23,24 +44,20 @@ const {width : WIDTH} = Dimensions.get('window')
       <Image  source = {logo} style = {styles.logo}  />
        </View>
        <View>
-         <TextInput
-         style = {styles.input }
-         placeholder  = {' Veuillez saisir votre identifiant '}
-         placeholderTextColor = {'black'}
-         underlineColorAndroid='transparent'
-         keyboardType = 'email-address'
-       />
-       <TextInput
-       style = {styles.input }
-       placeholder  = {' Veuillez saisir votre mot de passe '}
-       placeholderTextColor = {'black'}
-       underlineColorAndroid='transparent'
-       keyboardType = 'numeric'
-     />
 
-       </View>
+     <TextInput style={styles.input}
+            placeholder="Veuillez saisir votre Code"
+            placeholderTextColor ={'black'}
+             keyboardType = 'numeric'
+            secureTextEntry={true}
+            underlineColorAndroid='transparent'
+            onChangeText={(code) => this.setState({code})}/>
+      </View>
 
-      <TouchableOpacity style = {styles.btnLogin} onPress={() => navigate('Accueil', {name: 'Jane'})}>
+
+
+      <TouchableOpacity style = {styles.btnLogin}
+      onPress={this.login}>
 
        <Text style = {styles.text} >
                  Login
@@ -51,7 +68,54 @@ const {width : WIDTH} = Dimensions.get('window')
        </ImageBackground>
     );
   }
+
+
+  login = () => {
+
+
+    fetch('http://192.168.1.107:3001/users' , {
+      method: 'POST' ,
+      headers: {
+        'Accept' : 'application/json' ,
+        'Content-Type' : 'application/json' ,
+
+      } ,
+
+      body : JSON.stringify({
+        code : this.state.code ,
+
+      //  name: this.state.name
+      })
+    })
+        .then((response) => response.json())
+        .then((res) => {
+
+if ( this.state.code == ""){
+      alert(" put your code ");
+}else {
+
+  if (res.success === true){
+  //   AsyncStorage.setItem('user' , res.token)
+    this.props.navigation.navigate('Accueil')
+   global.code = this.state.code
+
+  } else {
+    alert(res.message);
+  }
+
+
 }
+
+
+
+        }) .done();
+    }
+}
+
+
+
+
+
 
 
 
