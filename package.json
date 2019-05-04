@@ -8,12 +8,15 @@
   },
   "dependencies": {
     "expo": "^32.0.0",
+    "expo-local-authentication": "^4.0.0",
     "moment": "^2.24.0",
     "native-base": "^2.12.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-countdown-component": "^2.2.0",
+    "react-native-elements": "^1.1.0",
     "react-native-moment-countdown": "0.0.2",
+    "react-native-search-filter": "^0.1.4",
     "react-native-vector-icons": "^6.3.0",
     "react-navigation": "^3.3.0",
     "rn-pdf-reader-js": "^0.2.3"

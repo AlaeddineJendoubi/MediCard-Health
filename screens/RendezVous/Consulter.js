@@ -27,6 +27,7 @@ import {
   ListItem,
   Separator
 } from "native-base";
+import Icon2 from 'react-native-vector-icons/AntDesign'
 import Icon0 from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon1 from "react-native-vector-icons/FontAwesome";
 import CountDown from "react-native-countdown-component";
@@ -130,9 +131,9 @@ rendez-vous à venir
                           </Text>
                         </Body>
                         <Right style={{ marginTop: 15 }}>
-                        <Icon1
+                        <Icon2
                           active
-                          name="angle-double-right"
+                          name="arrowright"
                           style={{ fontSize: 24, justifyContent: "center" }}
                             onPress={() => navigate('MedecinProfile', {idmedecin: idmedecin}) }
                         />

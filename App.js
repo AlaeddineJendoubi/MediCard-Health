@@ -24,7 +24,10 @@ import Prendre from "./screens/RendezVous/Prendre";
 import Historique from "./screens/RendezVous/Historique";
 import Suspendu from "./screens/RendezVous/Suspendu";
 import ParcoursDeSoin from "./screens/ParcoursDeSoin/ParcoursDeSoin";
+import ParcourSoinsSearch from "./screens/ParcoursDeSoin/ParcourSoinsSearch";
 import MedecinProfile from "./screens/MedecinProfile/MedecinProfile";
+import Medicaments from "./screens/Medicaments/Medicaments";
+import OrdonnanceByExamenmedicale from "./screens/OrdonnanceByExamenmedicale/OrdonnanceByExamenmedicale";
 import Analyses from "./screens/Analyses/Analyses";
 import Profil from "./screens/Profil/Profil";
 import APropos from "./screens/Apropos/APropos";
@@ -35,6 +38,7 @@ import Login from "./screens/Login/Login";
 import Icon from "@expo/vector-icons/Ionicons";
 import { Icon0 } from "native-base";
 import Icon1 from "react-native-vector-icons/FontAwesome";
+import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import { Font } from "expo";
 import { Ionicons } from "@expo/vector-icons";
 const { width } = Dimensions.get("window");
@@ -124,10 +128,13 @@ const StackNavigator = createStackNavigator(
     RendezvousTabNavigator: RendezvousTabNavigator,
     MedecinProfile:{
       screen:MedecinProfile
-    }
+
+    },
+
+
   },
   {
-    defaultNavigationOptions: ({ navigation }) => {
+    defaultNavigationOptions: ({ navigation }) => { //Default navigationOptions
       return {
         headerLeft: (
           <Icon
@@ -195,6 +202,18 @@ const AppDrawerNavigator = createDrawerNavigator(
         )
       }
     },
+    Medicaments: {
+      screen: Medicaments,
+      navigationOptions: {
+        title: "Medicaments",
+        drawerIcon: ({ tintColor }) => (
+          <Icon2
+            name="pill"
+            style={{ fontSize: 24, color: tintColor }}
+          />
+        )
+      }
+    },
     Profil: {
       screen: Profil,
       navigationOptions: {
@@ -229,7 +248,14 @@ const AppDrawerNavigator = createDrawerNavigator(
 const AppSwitchNavigator = createSwitchNavigator({
   //Nesting the drawer navigator into our AppSwitchNavigator
   Login: { screen: Login },
-  Accueil: { screen: AppDrawerNavigator }
+  Accueil: { screen: AppDrawerNavigator },
+  OrdonnanceByExamenmedicale:{
+    screen:OrdonnanceByExamenmedicale
+  },
+    ParcourSoinsSearch:{
+      screen: ParcourSoinsSearch
+    }
+
 });
 const MyApp = createAppContainer(AppSwitchNavigator); //puting the AppSwitchNavigator into the appcontainer
 

@@ -27,14 +27,14 @@ import {
   ListItem,
   Separator
 } from "native-base";
-const ip = "192.168.1.107";
+
 const { width: WIDTH } = Dimensions.get("window");
 import Icon0 from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon1 from "react-native-vector-icons/FontAwesome";
+
+const ip = "192.168.1.107";
 class MedecinProfile extends Component {
-static navigationOptions = {
-     title: 'Profile Medecin '
-   }
+
    constructor(props)
    {
      super(props)

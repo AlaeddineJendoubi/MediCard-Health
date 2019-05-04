@@ -3,14 +3,19 @@ import { StyleSheet,ImageBackground, TouchableOpacity, Dimensions, Icon , Text,T
 import{Thumbnail} from 'native-base';
 import logo from '../../assets/images/trylogo.png'
 import bg from '../../assets/images/trybgg.png'
-
+import { LocalAuthentication } from 'expo';
 
 const {width : WIDTH} = Dimensions.get('window')
 
  class Login extends Component {
   //   onPress={() => this.props.navigation.navigate('Profil')}
+
   render() {
     const {navigate} = this.props.navigation;
+      LocalAuthentication.hasHardwareAsync()
+      LocalAuthentication.supportedAuthenticationTypesAsync()
+      LocalAuthentication.isEnrolledAsync()
+      LocalAuthentication.authenticateAsync()
     return (
       <ImageBackground source={bg}  style={styles.Backgroundcontainer} >
       <View style={styles.logoContainer}>

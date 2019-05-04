@@ -169,7 +169,7 @@ Les rendez-vous qui n'ont pas été acceptés
                               textAlign: "center"
                             }}
                           >
-                            ça va expier 
+                            ça va expier
                           </Text>
                           <Text
                             style={{
