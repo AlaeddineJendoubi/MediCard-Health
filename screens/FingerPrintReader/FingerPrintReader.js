@@ -6,7 +6,7 @@ import bg from '../../assets/images/trybgg.png'
 import { LocalAuthentication } from 'expo';
 
 const {width : WIDTH} = Dimensions.get('window')
- class Login extends Component {
+ class FingerPrintReader extends Component {
   //   onPress={() => this.props.navigation.navigate('Profil')}
 
   constructor(props){
@@ -17,23 +17,19 @@ const {width : WIDTH} = Dimensions.get('window')
     idpatient : ''
      }
 }
-checklogin  = async () =>
-{
+componentDidMount() {
   LocalAuthentication.hasHardwareAsync()
 LocalAuthentication.supportedAuthenticationTypesAsync()
 LocalAuthentication.isEnrolledAsync()
-let ata = LocalAuthentication.authenticateAsync() ;
-if(ata =='success'){
-  alert("tati")
+if(LocalAuthentication.authenticateAsync() == "success")
+{
+    login()
 }
 
 
 }
-componentDidMount() {
 
-
-}
-  render() {
+  render(){
 
     const {navigate} = this.props.navigation;
 
@@ -69,57 +65,13 @@ componentDidMount() {
        </ImageBackground>
     );
   }
-
   nav =() =>{
     this.props.navigation.navigate('FingerPrintReader')
   }
   login = () => {
 
 
-    fetch('http://192.168.1.107:3001/users' , {
-      method: 'POST' ,
-      headers: {
-        'Accept' : 'application/json' ,
-        'Content-Type' : 'application/json' ,
-
-      } ,
-
-      body : JSON.stringify({
-        code : this.state.code ,
-        idpatient : this.state.idpatient,
-
-      //  name: this.state.name
-      })
-    })
-        .then((response) => response.json())
-        .then((res) => {
-
-if ( this.state.code == ""){
-      alert(" put your code ");
-}else {
-
-  if (res.success === true){
-    this.checklogin();
-       global.idpatient =res.idpatient
-  //   AsyncStorage.setItem('user' , res.token)
-  global.code = this.state.code
-
-
-    this.props.navigation.navigate('Accueil', {codeUsercon: this.state.code})
-
-
-
-  } else {
-    alert(res.message);
-  }
-
-
 }
-
-
-
-        }) .done();
-    }
 }
 
 
@@ -184,4 +136,4 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
-export default Login;
+export default FingerPrintReader;

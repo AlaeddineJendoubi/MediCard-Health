@@ -42,6 +42,7 @@ class Historique extends Component {
     data: []
   };
   fetchData = async () => {
+    const id = global.userID
     const response = await fetch("http://192.168.1.107:3000/rendezvousExpired/1");
     const rendezvous = await response.json(); //fetching response into rendezvous
     this.setState({ data: rendezvous }); //Setting it into state
@@ -71,7 +72,7 @@ style={{
   color: "#0c75b0"
 }}
 >
-Les rendez-vous passé
+Les rendez-vous passé {global.userID}
 </Text>
               <FlatList
                 data={this.state.data}

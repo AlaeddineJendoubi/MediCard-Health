@@ -43,6 +43,7 @@ class ParcoursDeSoin extends Component {
     this.fetchData();
   }
   render() {
+
 const { navigate } = this.props.navigation;
     return (
       <Container>

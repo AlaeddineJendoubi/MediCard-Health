@@ -11,18 +11,13 @@ import {
   Image ,
     ScrollView
 } from "react-native";
-import Icon0 from 'react-native-vector-icons/MaterialCommunityIcons'
-import Icon1 from 'react-native-vector-icons/AntDesign'
-import Icon2 from 'react-native-vector-icons/MaterialIcons'
-import Icon3 from 'react-native-vector-icons/FontAwesome'
-import bg from "../../assets/images/tryb.png";
-import logo from "../../assets/images/trylogo.png";
+
 import { createStackNavigator, createAppContainer } from "react-navigation";
 const { width: WIDTH } = Dimensions.get("window");
 import {Container, Header, CardItem , Card, Left, Body, Right, Title, Subtitle ,Button , List , ListItem,Icon, Content,Separator} from 'native-base'
 
 
-class Ordonnances extends Component {
+class DetailsOrdo extends Component {
   constructor() {
     super()
     this.state = {
@@ -32,12 +27,13 @@ class Ordonnances extends Component {
 
 
   renderItem = ({ item }) => {
+
     return (
 
       <ScrollView>
       <View style={styles.cardContent} >
 
-        <List >
+        <List  >
 
          <Header  style={{backgroundColor: "#283593" , width:310, height:40 , margin:10 , alignItems:'center' ,justifyContent : 'center'}}>
 
@@ -46,10 +42,12 @@ class Ordonnances extends Component {
                fontSize: 15,
                color: "#FFFFFF",
                textAlign: "center"
-             }}> Ordonnance de docteur : {" "} {" "} {" "} {" "} {" "} {" "} {" "} {" "} {item.fnmedecin} {item.lnmedecin} {" "}  </Text>
+             }}
+             > Ordonnance de docteur : {" "} {" "} {" "} {" "} {" "} {" "} {" "} {" "} {item.fnmedecin} {item.lnmedecin} {" "}  </Text>
 
          </Header>
-          <ListItem>
+          <ListItem  onPress={() => navigate("DetailsOrdo")}
+>
 
             <Body style={{alignItems:'center' ,justifyContent : 'center'}} >
 
@@ -124,27 +122,7 @@ class Ordonnances extends Component {
       <ImageBackground source={bg}  style={styles.Backgroundcontainer}  >
       <View style={styles.container}>
 
-      <Header style ={{backgroundColor : "#FFFFFF" }}
 
-        centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-      >
-
-          <Left style ={{top:10 , flex:1 }} >
-            <Icon name ="menu"  onPress={() =>
-                        this.props.navigation.openDrawer()} />
-            </Left>
-
-
-          </Header>
-        <View>
-          <FlatList
-            data={this.state.data}
-            renderItem={this.renderItem}
-            keyExtractor={(item, index) =>
-              index.toString()}
-          />
-
-        </View>
 
       </View>
       </ImageBackground>
@@ -154,7 +132,7 @@ class Ordonnances extends Component {
 
 }
 
-export default Ordonnances;
+export default DetailsOrdo;
 
 const styles = StyleSheet.create({
   container: {

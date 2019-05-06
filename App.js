@@ -22,6 +22,7 @@ import {
 import Consulter from "./screens/RendezVous/Consulter";
 import Prendre from "./screens/RendezVous/Prendre";
 import Historique from "./screens/RendezVous/Historique";
+import FingerPrintReader from "./screens/FingerPrintReader/FingerPrintReader";
 import Suspendu from "./screens/RendezVous/Suspendu";
 import ParcoursDeSoin from "./screens/ParcoursDeSoin/ParcoursDeSoin";
 import ParcourSoinsSearch from "./screens/ParcoursDeSoin/ParcourSoinsSearch";
@@ -33,6 +34,8 @@ import Profil from "./screens/Profil/Profil";
 import APropos from "./screens/Apropos/APropos";
 import Accueil from "./screens/Accueil/Accueil";
 import Ordonnance from "./screens/Ordonnance/Ordonnance";
+import DetailsOrdo from "./screens/Ordonnance/DetailsOrdo";
+
 import Login from "./screens/Login/Login";
 //Used Component imports
 import Icon from "@expo/vector-icons/Ionicons";
@@ -237,6 +240,7 @@ const AppDrawerNavigator = createDrawerNavigator(
     }
   },
 
+
   {
     contentComponent: CustomDrawerComponent,
     drawerWidth: width / 2,
@@ -248,6 +252,7 @@ const AppDrawerNavigator = createDrawerNavigator(
 
 const AppSwitchNavigator = createSwitchNavigator({
   //Nesting the drawer navigator into our AppSwitchNavigator
+
   Login: { screen: Login },
   Accueil: { screen: AppDrawerNavigator },
   OrdonnanceByExamenmedicale:{
@@ -255,7 +260,12 @@ const AppSwitchNavigator = createSwitchNavigator({
   },
     ParcourSoinsSearch:{
       screen: ParcourSoinsSearch
-    }
+    },
+    FingerPrintReader:{
+      screen : FingerPrintReader
+    },
+    DetailsOrdo :{screen : DetailsOrdo}
+
 
 });
 const MyApp = createAppContainer(AppSwitchNavigator); //puting the AppSwitchNavigator into the appcontainer

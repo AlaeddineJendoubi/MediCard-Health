@@ -39,23 +39,26 @@ const { width: WIDTH } = Dimensions.get("window");
 
 const id = "1";
 const ip = "192.168.1.107";
-const api = "http://"+ip+":3000/rendezvousValider/"+id;
+const api = "http://"+ip+":3000/rendezvousValider/";
 
 
 
 
 class Consulter extends Component {
   state = {
-    data: []
+    data: [],
+    catchUserId: ''
   };
 
   fetchData = async () => {
-    const response = await fetch(api); //Api link
+    const id = global.code
+    const response = await fetch(api+id); //Api link
     const rendezvous = await response.json(); //fetching response into rendezvous
     this.setState({ data: rendezvous }); //Setting it into state
   };
 
   componentDidMount() {
+  //  const idpatient = global.idpatient ;
     this.fetchData();
   }
 
@@ -93,7 +96,7 @@ rendez-vous à venir
                   var dateNow = date;
                   var s = dates - dateNow;
                   var idmedecin= item.idmedecin;
-
+                   var tati = item.idpatient ;
                   return (
                     <View style={{ flex: 1, color: "red", width: WIDTH }}>
 
@@ -116,7 +119,8 @@ rendez-vous à venir
                               textAlign: "center"
                             }}
                           >
-                            Votre rendez-vous avec
+                            Votre rendez-vous avec 
+
                           </Text>
                           <Text
                             style={{
