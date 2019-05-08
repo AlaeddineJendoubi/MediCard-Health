@@ -42,7 +42,9 @@ class Suspendu extends Component {
     data: []
   };
   fetchData = async () => {
-    const response = await fetch("http://192.168.1.107:3000/rendezvousPinned/1");
+    const id = global.idUserCon
+
+    const response = await fetch("http://192.168.1.107:3000/rendezvousPinned/"+id);
     const rendezvous = await response.json(); //fetching response into rendezvous
     this.setState({ data: rendezvous }); //Setting it into state
   };

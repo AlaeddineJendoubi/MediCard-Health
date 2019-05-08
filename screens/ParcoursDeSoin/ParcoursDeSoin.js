@@ -33,7 +33,8 @@ class ParcoursDeSoin extends Component {
     data:[]
   }
   fetchData= async()=>{
-    const response = await fetch('http://192.168.1.107:3000/parcoursoin/2');
+    const iduserCon = global.idUserCon
+    const response = await fetch('http://192.168.1.107:3000/parcoursoin/'+iduserCon);
     const parcoursoin =await response.json();
     this.setState({data:parcoursoin});
   }

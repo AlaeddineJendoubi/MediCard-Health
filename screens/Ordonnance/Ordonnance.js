@@ -39,14 +39,14 @@ class Ordonnances extends Component {
 
         <List >
 
-         <Header  style={{backgroundColor: "#283593" , width:310, height:40 , margin:10 , alignItems:'center' ,justifyContent : 'center'}}>
+         <Header  style={{backgroundColor: "#283593" ,  margin:10 , alignItems:'center' ,justifyContent : 'center'}}>
 
          <Text     style={{
                fontFamily: "Ionicons",
                fontSize: 15,
                color: "#FFFFFF",
                textAlign: "center"
-             }}> Ordonnance de docteur : {" "} {" "} {" "} {" "} {" "} {" "} {" "} {" "} {item.fnmedecin} {item.lnmedecin} {" "}  </Text>
+             }}> Ordonnance de docteur :  {item.fnmedecin} {item.lnmedecin} {" "}  </Text>
 
          </Header>
           <ListItem>
@@ -124,10 +124,14 @@ class Ordonnances extends Component {
       <ImageBackground source={bg}  style={styles.Backgroundcontainer}  >
       <View style={styles.container}>
 
-      <Header style ={{backgroundColor : "#FFFFFF" }}
-
-        centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-      >
+      <Header
+          style={{
+            marginTop: 35,
+            backgroundColor: "#283593",
+            borderWidth: 1,
+            borderBottomColor: "white"
+          }}
+        >
 
           <Left style ={{top:10 , flex:1 }} >
             <Icon name ="menu"  onPress={() =>

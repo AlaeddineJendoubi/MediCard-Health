@@ -51,7 +51,7 @@ class Consulter extends Component {
   };
 
   fetchData = async () => {
-    const id = global.code
+    const id = global.idUserCon
     const response = await fetch(api+id); //Api link
     const rendezvous = await response.json(); //fetching response into rendezvous
     this.setState({ data: rendezvous }); //Setting it into state
@@ -119,7 +119,7 @@ rendez-vous à venir
                               textAlign: "center"
                             }}
                           >
-                            Votre rendez-vous avec 
+                            Votre rendez-vous avec
 
                           </Text>
                           <Text

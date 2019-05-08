@@ -43,8 +43,8 @@ const { navigation } = this.props;
     data:[]
   }
   fetchData = async () => {
-
-   const api = "http://"+ip+":3000/getMedsByUser/1";
+    const iduserCon = global.idUserCon
+   const api = "http://"+ip+":3000/getMedsByUser/"+iduserCon;
     const response = await fetch(api); //Api link
     const meds = await response.json(); //fetching response into rendezvous
     this.setState({ data: meds }); //Setting it into state

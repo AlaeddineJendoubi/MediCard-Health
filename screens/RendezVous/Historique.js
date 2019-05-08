@@ -42,8 +42,9 @@ class Historique extends Component {
     data: []
   };
   fetchData = async () => {
-    const id = global.userID
-    const response = await fetch("http://192.168.1.107:3000/rendezvousExpired/1");
+    const id = global.idUserCon
+
+    const response = await fetch("http://192.168.1.107:3000/rendezvousExpired/"+id);
     const rendezvous = await response.json(); //fetching response into rendezvous
     this.setState({ data: rendezvous }); //Setting it into state
   };

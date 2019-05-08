@@ -46,6 +46,7 @@ import { Font } from "expo";
 import { Ionicons } from "@expo/vector-icons";
 const { width } = Dimensions.get("window");
 import drawerBg from "./assets/images/tryb.png";
+import { Permissions, Notifications } from 'expo';
 export default class App extends React.Component {
   //Loading used fonts at the app start
   async componentWillMount() {
@@ -237,7 +238,26 @@ const AppDrawerNavigator = createDrawerNavigator(
           />
         )
       }
-    }
+    },
+    Login: {
+      screen: Login,
+      navigationOptions: {
+
+        title: "Logout",
+        drawerIcon: ({ tintColor }) => (
+          <Icon
+            name="md-log-out"
+            style={{ fontSize: 24, color: tintColor }}
+          />
+        )
+      }
+    },
+
+
+
+
+
+
   },
 
 

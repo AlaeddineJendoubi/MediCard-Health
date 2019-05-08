@@ -43,6 +43,7 @@ import bg from "../../assets/images/tryb.png";
 import logo from "../../assets/images/trylogo.png";
 import Iconbtn from "@expo/vector-icons/Ionicons";
 const { width: WIDTH } = Dimensions.get("window");
+const id = global.idUserCon
 
 const ip = "192.168.1.107";
 
@@ -63,6 +64,7 @@ class Prendre extends Component {
     idmedecin : '',
     medecin:'',
     chosenDate : new Date(),
+    idpatient : global.idUserCon
 }
 
    this.setDate = this.setDate.bind(this);
@@ -74,6 +76,7 @@ this.setState({ chosenDate: newDate })
 
 
   fetchDocs = async () => {
+
     const api = "http://"+ip+":3000/medecinSpecialite/"+this.state.specilaite;
     const response = await fetch(api)
       .then((response) => response.json())
@@ -140,7 +143,7 @@ addRendezVous = () => {
 
  var details = {
      'idmedecin': parseInt(this.state.medecin),
-     'idpatient': 1,
+     'idpatient': this.state.idpatient ,
      'etat': 1,
      'date': date
 

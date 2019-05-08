@@ -36,11 +36,13 @@ import "moment/locale/fr";
 import bg from "../../assets/images/welcom.png";
 import logo from "../../assets/images/meds.gif";
 import Iconbtn from "@expo/vector-icons/Ionicons";
+import { Permissions, Notifications } from 'expo';
 const { width: WIDTH } = Dimensions.get("window");
-
+const PUSH_ENDPOINT = 'http://192.168.1.107:3000/pushTokenSend';
 const id = "1";
 const ip = "192.168.1.107";
 const api = "http://"+ip+":3000/getUserInformation/";
+import {registerForPushNotificationsAsync} from  "../../screens/serv/index";
 
 
 
@@ -52,12 +54,17 @@ class Accueil extends Component {
     userName :''
   };
 
+
   fetchData = async () => {
     const id = global.code
     const response = await fetch(api+id); //Api link
     const rendezvous = await response.json(); //fetching response into rendezvous
     this.setState({ data: rendezvous }); //Setting it into state
   };
+
+  componentWillMount(){
+    registerForPushNotificationsAsync();
+  }
 
   componentDidMount() {
   //  const idpatient = global.idpatient ;
@@ -347,7 +354,7 @@ class Accueil extends Component {
                         </Body>
 
                       </ListItem>
-                    
+
 
 
                     </View>
